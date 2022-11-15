@@ -15,8 +15,10 @@ suma=0
 
 for indice in range(len(lista)):
     suma += lista[indice]
-promedio = suma//indice
+promedio = suma//len(lista)
+
 print('El promedio es: ',promedio)
+#print(suma)
 
 for indice in range(len(lista)):
     if lista[indice] == promedio:

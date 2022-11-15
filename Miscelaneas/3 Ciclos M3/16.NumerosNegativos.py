@@ -1,4 +1,4 @@
-'''Pedir numeros, imprimirlo con el opuesto 
+'''16. Pedir numeros, imprimirlo con el opuesto 
 (ejemplo 5 opuesto -5, -10 opuesto 10), 
 finaliza con cero y diga cuantos ingreso.'''
 

@@ -1,6 +1,6 @@
 #NOT
 
-''' Ternas pitagoricas. Un tringulo rectangulo puede tener 
+''' 17. Ternas pitagoricas. Un tringulo rectangulo puede tener 
 lados que sean todos enteros, el conjunto de 3 valores enteros 
 para los lados de un triangulo rectangulo se conoce como 
 una terna pitagorica. Estos 3 lados deben satisfacer 

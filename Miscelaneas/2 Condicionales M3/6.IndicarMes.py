@@ -26,5 +26,7 @@ elif dias <= 304:
     print('Usted esta en octubre')
 elif dias <= 334:
     print('Usted esta en noviembre')
-else:
+elif dias <= 365:
     print('Usted esta en diciembre')
+else:
+    print('Dias no validos')

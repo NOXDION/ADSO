@@ -8,7 +8,7 @@ if segundos>0:
     minutos=segundos//60
     hora=minutos//60
     #hora = hora//60
-    print('La cantidad ingresada equivale a: \n',hora,'horas y',minutos,'minutos.')
+    print('La cantidad ingresada equivale a: \n',hora,'horas y que equivalen a ',minutos,'minutos.')
 else:
     print('Cantidad invalida')
 
