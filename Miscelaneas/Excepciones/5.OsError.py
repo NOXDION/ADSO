@@ -1,7 +1,7 @@
 #OSERROR
-'''Algunas excepciones predefinidas (como OSError ) esperan un cierto número de argumentos y 
-asignan un significado especial a los elementos de esta tupla, mientras que otras normalmente se 
-llaman solo con una sola cadena que da un mensaje de error.'''
+'''Esta excepción se produce cuando una función del sistema retorna un error relacionado 
+con el sistema, que incluye fallas de E/S como file not found o disk full 
+(no para tipos de argumentos ilegales u otros errores incidentales).'''
 
 x='fichero.txt'
 

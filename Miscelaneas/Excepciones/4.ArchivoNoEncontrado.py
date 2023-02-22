@@ -6,12 +6,12 @@ ya sea porque no está presente en la ruta de archivo en particular o porque se 
 #open("database.sqlite")
 
 x="database.sqlite"
-def filenot(x):
+def abrirArchivo(x):
     open(x)
     return open
     
 try:
-    filenot(x)
+    abrirArchivo(x)
 except FileNotFoundError:
     print('Archivo no existe')
 except:
