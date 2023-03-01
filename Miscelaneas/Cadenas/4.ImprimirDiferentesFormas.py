@@ -12,3 +12,4 @@ def ImprimirCadena(a):
     return a.lower(),a.capitalize(),a.upper(),a.swapcase(),a.title()
 
 print(ImprimirCadena(a))
+#print('Hi')

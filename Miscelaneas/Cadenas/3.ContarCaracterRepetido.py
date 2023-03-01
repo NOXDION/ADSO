@@ -7,3 +7,4 @@ def CaracterRepetido(a):
         print(f'{i} = {a.count(i)}')
 
 CaracterRepetido(cadena)
+#print('Hi')

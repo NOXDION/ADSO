@@ -10,3 +10,4 @@ for i in agudas:
         if j in a.endswith(i):
             print('Aguda')
 
+#print('Hi')

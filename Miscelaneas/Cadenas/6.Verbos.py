@@ -18,3 +18,4 @@ def tiemposVerbos(verbo):
             print(f'El verbo {verbo} esta en pasado.')
 
 tiemposVerbos(verbo)
+#print('Hi')

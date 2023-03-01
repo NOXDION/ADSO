@@ -24,3 +24,4 @@ def contarAbecedario2(abc):
     return len(abc),len(a)
 
 print(contarAbecedario2(abc))
+#print('Hi')

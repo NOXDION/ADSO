@@ -30,3 +30,4 @@ def contarCaracteres(cadena):
         #f' {vocalesConTilde} vocales con tilde.\n {caracterEspecial} caracteres especiales.\n {digitos} digitos.\n')
 
 print(contarCaracteres(cadena))
+#print('Hi')

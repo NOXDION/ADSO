@@ -117,3 +117,4 @@ documento=(input('Ingresa tu numero de documento: '))'''
 #eliminarDato(dicTest1)
 #OrdenarDic(dicTest1)
 #print(dicTest1)
+#print('Hi')
