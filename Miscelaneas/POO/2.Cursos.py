@@ -5,12 +5,13 @@ class Usuario:
         #self.usuarios={}
         Usuario.obCont+=1
     
-    def agreagarUsuario(self,nombre,edad,contacto,username,contraseña):
-        self.nombre=nombre
-        self.edad=edad
-        self.contacto=contacto
-        self.username=username
-        self.contraseña=contraseña
+    def agregarUsuario(self):
+        self.nombre=str(input('Ingrese nombre: '))
+        self.edad=str(input('Ingrese edad: '))
+        self.contacto=str(input('Ingrese numero de contacto: '))
+        self.username=str(input('Ingrese usuario: '))
+        self.contraseña=str(input('Ingrese contraseña: '))
+        self.rol=str(input('Ingrese rol: '))
         #self.usuarios.update({self.username: self.contraseña})
         #self.datos.append(self.nombre),self.datos.append(self.edad), self.datos.append(self.contacto), self.datos.append(self.username)
 
@@ -34,7 +35,7 @@ class Usuario:
             self.contraseña=upContraseña
 
     def getDatos(self):
-        return self.nombre, self.edad, self.contacto, self.username, self.contraseña
+        return self.nombre, self.edad, self.contacto, self.username, self.contraseña, self.rol
 
 class Instructor(Usuario):
     def agregarAsignatura(self,asignaturaAgregada):
@@ -50,7 +51,7 @@ class Estudiante(Usuario):
     def getInscripcionAgregada(self):
         print(self.inscripcionAgregada)
     
-class Asignatura:
+'''class Asignatura:
     def __init__(self,nombreAsignatura):
         self.nombreAsignatura=nombreAsignatura
         self.__cursos=[]
@@ -76,29 +77,35 @@ class Curso:
         self.nombreCurso=nombreCurso
     
     def getNombreCursos(self):
-        return self.nombreCurso
+        return self.nombreCurso'''
 
-
-Estudiante1=Estudiante()
-Estudiante1.agreagarUsuario('Dionigi','17','3227242272','NOXDION','dionigi0987') 
-#Estudiante1.actualizarUsuario()
-print(Estudiante1.getDatos())
+'''Estudiante1=Estudiante()
+Estudiante1.agregarUsuario()
+print(Estudiante1.getDatos())'''
+# #Estudiante1.agregarUsuario('Dionigi','17','3227242272','NOXDION','dionigi0987') 
+# #Estudiante1.actualizarUsuario()
+# print(Estudiante1.getDatos())
 
 Instructor1=Instructor()
-Instructor1.agreagarUsuario('Esteban','28','3227242274','RUDEUS','esteban0987') 
-#Instructor1.actualizarUsuario()
+Instructor1.agregarUsuario()
+# #Instructor1.actualizarUsuario()
 print(Instructor1.getDatos())
+#Instructor1.gustos='comida criolla
+#print(Instructor1.gustos)
 
-Ingles=Asignatura('Ingles')
-Inscripcion1=Inscripcion('AI01')
 
-Estudiante1.agregarInscripcion(Inscripcion1)
-Estudiante1.getInscripcionAgregada()
 
-Instructor1.agregarAsignatura(Ingles)
-Instructor1.getAsignaturaAgregada()
 
-print(Ingles.getCursos())
+# Ingles=Asignatura('Ingles')
+# Inscripcion1=Inscripcion('AI01')
+
+# Estudiante1.agregarInscripcion(Inscripcion1)
+# Estudiante1.getInscripcionAgregada()
+
+# Instructor1.agregarAsignatura(Ingles)
+# Instructor1.getAsignaturaAgregada()
+
+# print(Ingles.getCursos())
 '''for curso in Ingles.getCursos():
     #print(curso)
     print(curso.getNombreCurso())
