@@ -79,6 +79,49 @@ class Curso:
     def getNombreCursos(self):
         return self.nombreCurso'''
 
+def crearObjeto(objeto=input('Ingrese nombre: ')):
+    objeto=Usuario()
+    return objeto
+
+print(crearObjeto())
+
+
+
+
+print('             WELCOME TO SENA 2             \n')
+'''
+playlist={}
+
+x=int(input('-Presione 1 para ingresar-\n-Presione 0 para salir-\n° '))
+
+while x!=0:
+    x=int(input('\n-Presione 1 para agregar artista-\n-Presione 2 para agregar cancion-\n'\
+    '-Presione 3 para buscar artista-\n-Presione 4 para buscar cancion-\n'\
+    '-Presione 5 para eliminar artista-\n-Presione 6 para mostrar la lista alfabeticamente-\n'\
+    '-Presione 7 para mostrar el artista quee tiene mas canciones-\n-Presione 8 para mostrar la cancion mas larga-\n'\
+    '-Presione 9 para mostar la cancion mas corta-\n-Presione 0 para salir-\n° '))
+    if x == 1:
+
+    elif x==2:
+
+    elif x==3:
+    
+    elif x==4:
+ 
+    elif x==5:
+
+    elif x==6:
+
+    elif x==7:
+        print('ERROR.EXE')
+    elif x==8:
+
+    elif x==9:
+
+else:
+    print(playlist)
+    print('\nAcabas de salir\n')'''
+
 '''Estudiante1=Estudiante()
 Estudiante1.agregarUsuario()
 print(Estudiante1.getDatos())'''
@@ -90,11 +133,8 @@ Instructor1=Instructor()
 Instructor1.agregarUsuario()
 # #Instructor1.actualizarUsuario()
 print(Instructor1.getDatos())
-#Instructor1.gustos='comida criolla
+#Instructor1.gustos='comida criolla'
 #print(Instructor1.gustos)
-
-
-
 
 # Ingles=Asignatura('Ingles')
 # Inscripcion1=Inscripcion('AI01')
@@ -106,7 +146,4 @@ print(Instructor1.getDatos())
 # Instructor1.getAsignaturaAgregada()
 
 # print(Ingles.getCursos())
-'''for curso in Ingles.getCursos():
-    #print(curso)
-    print(curso.getNombreCurso())
-'''
+
