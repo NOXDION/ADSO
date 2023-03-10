@@ -79,60 +79,18 @@ class Curso:
     def getNombreCursos(self):
         return self.nombreCurso'''
 
-def crearObjeto(objeto=input('Ingrese nombre: ')):
-    objeto=Usuario()
-    return objeto
 
-print(crearObjeto())
-
-
-
-
-print('             WELCOME TO SENA 2             \n')
-'''
-playlist={}
-
-x=int(input('-Presione 1 para ingresar-\n-Presione 0 para salir-\n° '))
-
-while x!=0:
-    x=int(input('\n-Presione 1 para agregar artista-\n-Presione 2 para agregar cancion-\n'\
-    '-Presione 3 para buscar artista-\n-Presione 4 para buscar cancion-\n'\
-    '-Presione 5 para eliminar artista-\n-Presione 6 para mostrar la lista alfabeticamente-\n'\
-    '-Presione 7 para mostrar el artista quee tiene mas canciones-\n-Presione 8 para mostrar la cancion mas larga-\n'\
-    '-Presione 9 para mostar la cancion mas corta-\n-Presione 0 para salir-\n° '))
-    if x == 1:
-
-    elif x==2:
-
-    elif x==3:
-    
-    elif x==4:
- 
-    elif x==5:
-
-    elif x==6:
-
-    elif x==7:
-        print('ERROR.EXE')
-    elif x==8:
-
-    elif x==9:
-
-else:
-    print(playlist)
-    print('\nAcabas de salir\n')'''
-
-'''Estudiante1=Estudiante()
-Estudiante1.agregarUsuario()
-print(Estudiante1.getDatos())'''
+Estudiante1=Estudiante()
+#Estudiante1.agregarUsuario()
+#print(Estudiante1.getDatos())
 # #Estudiante1.agregarUsuario('Dionigi','17','3227242272','NOXDION','dionigi0987') 
 # #Estudiante1.actualizarUsuario()
 # print(Estudiante1.getDatos())
 
 Instructor1=Instructor()
-Instructor1.agregarUsuario()
-# #Instructor1.actualizarUsuario()
-print(Instructor1.getDatos())
+#Instructor1.agregarUsuario()
+#Instructor1.actualizarUsuario()
+#print(Instructor1.getDatos())
 #Instructor1.gustos='comida criolla'
 #print(Instructor1.gustos)
 
@@ -147,3 +105,46 @@ print(Instructor1.getDatos())
 
 # print(Ingles.getCursos())
 
+print('\n             WELCOME TO SENA 2             \n')
+
+x=int(input('-Presione 1 para ingresar-\n-Presione 0 para salir-\n° '))
+
+while x!=0:
+    x=int(input('\n-Presione 1 para ingresar como instructor-\n-Presione 2 para ingresar como estudiante-\n-Presione 0 para salir-\n° '))
+    if x==1:
+        print('\n-Ingresaste como instructor-\n')
+        while x!=0:
+            x=int(input('\n-Presione 1 para registrar sus datos como instructor-\n-Presione 2 para agregar cancion-\n'\
+            '-Presione 3 para buscar artista-\n-Presione 4 para buscar cancion-\n'\
+            '-Presione 5 para eliminar artista-\n-Presione 6 para mostrar la lista alfabeticamente-\n'\
+            '-Presione 7 para mostrar el artista quee tiene mas canciones-\n-Presione 8 para mostrar la cancion mas larga-\n'\
+            '-Presione 9 para mostar la cancion mas corta-\n-Presione 0 para salir-\n° '))
+            if x == 1:
+                    Instructor1.agregarUsuario()
+    elif x==2:
+        print('\n-Ingresaste como estudiante-\n')
+        while x!=0:
+            x=int(input('\n-Presione 1 para registrar sus datos como estudiante-\n-Presione 2 para agregar cancion-\n'\
+            '-Presione 3 para buscar artista-\n-Presione 4 para buscar cancion-\n'\
+            '-Presione 5 para eliminar artista-\n-Presione 6 para mostrar la lista alfabeticamente-\n'\
+            '-Presione 7 para mostrar el artista quee tiene mas canciones-\n-Presione 8 para mostrar la cancion mas larga-\n'\
+            '-Presione 9 para mostar la cancion mas corta-\n-Presione 0 para salir-\n° '))
+            if x==1:
+                Estudiante1.agregarUsuario()
+
+    '''elif x==3:
+    
+    elif x==4:
+ 
+    elif x==5:
+
+    elif x==6:
+
+    elif x==7:
+        print('ERROR.EXE')
+    elif x==8:
+
+    elif x==9:
+'''
+else:
+    print('\nAcabas de salir\n')
