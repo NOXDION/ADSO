@@ -14,5 +14,5 @@ cadConductor=obCarga.getConductor().getNombre()+','+str(obCarga.getConductor().g
 
 cadCarga=obCarga.getPlaca()+','+cadConductor+','+str(obCarga.getCapacidad())+','+str(obCarga.getEjes())
 
-with open('Poo_archivos/listado.txt','a') as flujo:
+with open('Comentarios/Poo_archivos/listado.txt','a') as flujo:
     flujo.write(cadCarga+'\n')

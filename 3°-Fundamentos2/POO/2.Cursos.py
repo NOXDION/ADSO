@@ -49,9 +49,9 @@ class Estudiante(Usuario):
         self.inscripcionAgregada=inscripcionAgregada
 
     def getInscripcionAgregada(self):
-        print(self.inscripcionAgregada)
+            return self.inscripcionAgregada
     
-'''class Asignatura:
+class Asignatura:
     def __init__(self,nombreAsignatura):
         self.nombreAsignatura=nombreAsignatura
         self.__cursos=[]
@@ -77,15 +77,14 @@ class Curso:
         self.nombreCurso=nombreCurso
     
     def getNombreCursos(self):
-        return self.nombreCurso'''
+        return self.nombreCurso
 
 
 Estudiante1=Estudiante()
 #Estudiante1.agregarUsuario()
 #print(Estudiante1.getDatos())
-# #Estudiante1.agregarUsuario('Dionigi','17','3227242272','NOXDION','dionigi0987') 
-# #Estudiante1.actualizarUsuario()
-# print(Estudiante1.getDatos())
+#Estudiante1.actualizarUsuario()
+#print(Estudiante1.getDatos())
 
 Instructor1=Instructor()
 #Instructor1.agregarUsuario()
@@ -98,14 +97,14 @@ Instructor1=Instructor()
 # Inscripcion1=Inscripcion('AI01')
 
 # Estudiante1.agregarInscripcion(Inscripcion1)
-# Estudiante1.getInscripcionAgregada()
+# print(Estudiante1.getInscripcionAgregada())
 
 # Instructor1.agregarAsignatura(Ingles)
 # Instructor1.getAsignaturaAgregada()
 
 # print(Ingles.getCursos())
 
-print('\n             WELCOME TO SENA 2             \n')
+'''print('\n             WELCOME TO SENA 2             \n')
 
 x=int(input('-Presione 1 para ingresar-\n-Presione 0 para salir-\n° '))
 
@@ -120,7 +119,9 @@ while x!=0:
             '-Presione 7 para mostrar el artista quee tiene mas canciones-\n-Presione 8 para mostrar la cancion mas larga-\n'\
             '-Presione 9 para mostar la cancion mas corta-\n-Presione 0 para salir-\n° '))
             if x == 1:
-                    Instructor1.agregarUsuario()
+                Instructor1.agregarUsuario()
+            elif x==2:
+                print(Instructor1.getDatos())
     elif x==2:
         print('\n-Ingresaste como estudiante-\n')
         while x!=0:
@@ -131,8 +132,10 @@ while x!=0:
             '-Presione 9 para mostar la cancion mas corta-\n-Presione 0 para salir-\n° '))
             if x==1:
                 Estudiante1.agregarUsuario()
+            elif x==2:
+                print(Estudiante1.getDatos())'''
 
-    '''elif x==3:
+''' elif x==3:
     
     elif x==4:
  
@@ -145,6 +148,6 @@ while x!=0:
     elif x==8:
 
     elif x==9:
-'''
+
 else:
-    print('\nAcabas de salir\n')
+    print('\n-Acabas de salir-\n')'''
