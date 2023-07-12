@@ -1,0 +1,88 @@
+CREATE DATABASE Cursores;
+
+CREATE TABLE tbEstudiante (
+    estDoc VARCHAR(10) PRIMARY KEY,
+    estNombre VARCHAR(20),
+    estApellido VARCHAR(20),
+    estEdad INT
+    );
+
+INSERT INTO tbestudiante VALUES 
+('38654201', 'Miguel','Moreno',21),
+('38654202', 'Maria','Lopez',22),
+('38654203', 'Daniel','Mancini',23),
+('38654204', 'Valentina','Martinez',24),
+('38654205', 'Pedro','Gomez',25);
+
+DELIMITER //
+CREATE PROCEDURE ejemploCursor()
+BEGIN
+	DECLARE stop BOOLEAN DEFAULT FALSE;
+    DECLARE campo1 VARCHAR(10);
+    DECLARE campo2 VARCHAR(10);
+    DECLARE campo3 VARCHAR(10);
+    DECLARE campo4 VARCHAR(10);
+    DECLARE cursorEdad CURSOR FOR
+    	SELECT tbestudiante.estDoc, tbestudiante.estNombre, tbestudiante.estApellido, tbestudiante.estEdad FROM tbestudiante;
+    DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET stop = TRUE;
+    OPEN cursorEdad;
+    	cl_loop: LOOP
+    FETCH cursorEdad INTO campo1, campo2, campo3, campo4;
+    IF stop THEN LEAVE cl_loop;
+    END IF;
+    UPDATE tbestudiante SET tbestudiante.estEdad = tbestudiante.estEdad + 5 WHERE tbestudiante.estDoc = campo1;
+    END LOOP cl_loop;
+    CLOSE cursorEdad;
+END//
+DELIMITER ;
+
+CALL ejemploCursor;
+
+CREATE TABLE
+
+CREATE TABLE tbVentas (
+    venCodigo VARCHAR(10) PRIMARY KEY,
+    venNombreVendedor VARCHAR(20),
+    venValor DECIMAL(20,2),
+    venFecha DATE
+    );
+
+INSERT INTO tbVentas VALUES 
+('0001', 'Juan', 1500.00, '2023-01-15'),
+('0002', 'Luis', 2000.00, '2023-02-20'),
+('0003', 'Laura', 1800.50, '2023-03-10'),
+('0004', 'Juan', 2500.75, '2023-04-05'),
+('0005', 'Luis', 1700.25, '2023-01-12'),
+('0006', 'Laura', 3000.00, '2023-02-01'),
+('0007', 'Carlos', 2200.50, '2023-03-08'),
+('0008', 'Juan', 1850.75, '2023-04-17');
+
+DELIMITER //
+CREATE PROCEDURE vendedorMasFacturo(IN fInicial DATE, IN fFinal DATE)
+BEGIN
+	DECLARE stop BOOLEAN DEFAULT FALSE;
+    DECLARE campo1 VARCHAR(10);
+    DECLARE campo2 DECIMAL(20,2);
+
+    DECLARE cursorFacturar CURSOR FOR
+    	SELECT venNombreVendedor, SUM(venValor) AS TotalAcumulado FROM tbventas
+        WHERE venFecha BETWEEN fInicial AND fFinal
+        GROUP BY venNombreVendedor
+        ORDER BY TotalAcumulado DESC LIMIT 1;
+
+    DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET stop = TRUE;
+
+    OPEN cursorFacturar;
+    	cl_loop: LOOP
+            FETCH cursorFacturar INTO campo1, campo2;
+                IF stop THEN LEAVE cl_loop;
+                END IF;
+        END LOOP cl_loop;
+
+        SELECT campo1, campo2;
+    CLOSE cursorFacturar;
+END//
+DELIMITER ;
+
+CALL vendedorMasFacturo('2023-01-01','2023-05-01');
+DROP PROCEDURE vendedorMasFacturo;

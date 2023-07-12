@@ -1,0 +1,45 @@
+CREATE TABLE tbAprendiz(
+  aprNrodoc VARCHAR(10) PRIMARY KEY,
+  aprApellidos VARCHAR(30),
+  aprGenero VARCHAR(1),
+  aprPrograma VARCHAR(30),
+  aprApoyo FLOAT
+ );
+
+
+INSERT INTO tbAprendiz VALUES
+('10001','Martinez','M','ADSO',500000),
+('10002','Castro','F','ADSI',500000),
+('10003','Lopez','M','SISTEMAS',500000),
+('10004','Rodriguez','F','SISTEMAS',500000),
+('10005','Santander','M','ADSI',500000),
+('10006','Nieves','F','ADSO',500000);
+
+-- Creacion de la funcion
+CREATE FUNCTION apoyoPorPrograma (valor VARCHAR) RETURNS FLOAT AS
+$$
+DECLARE variable2 FLOAT;
+BEGIN
+  variable2:= (SELECT SUM(aprApoyo) FROM tbAprendiz WHERE aprPrograma = valor);
+  RETURN variable2;
+END
+$$
+LANGUAGE plpgsql;
+
+SELECT apoyoPorPrograma('ADSO');
+
+SELECT DISTINCT aprPrograma, apoyoPorPrograma(aprPrograma) AS Suma FROM tbAprendiz;
+
+CREATE FUNCTION nombreGeneros(variable VARCHAR) RETURNS VARCHAR AS
+$$
+BEGIN
+  IF variable = 'M' THEN
+    RETURN 'Masculino';
+  ELSE
+    RETURN 'Femenina';
+  END IF;
+END
+$$
+LANGUAGE plpgsql;
+
+SELECT aprApellidos, nombreGeneros(aprGenero) FROM tbAprendiz;

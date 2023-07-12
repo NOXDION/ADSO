@@ -1,0 +1,33 @@
+use Examen;
+
+db.createCollection('clLibros');
+db.clLibros.insertOne({libCodigo:2001, libNombre:'Luciernagas', libAutor:'Rafael', libFechaPUb:'10/07/1998'});
+db.clLibros.insertOne({libCodigo:2002, libNombre:'Orugas', libAutor:'Juan', libFechaPUb:'11/07/1998'});
+db.clLibros.insertOne({libCodigo:2003, libNombre:'Dinosaurios', libAutor:'Pedro', libFechaPUb:'12/07/1998'});
+db.clLibros.insertOne({libCodigo:2004, libNombre:'Perros', libAutor:'Maria', libFechaPUb:'13/07/1998'});
+db.clLibros.insertOne({libCodigo:2005, libNombre:'Salamandras', libAutor:'Rafael', libFechaPUb:'14/07/1998'});
+
+db.clLibros.insertMany([{libCodigo:2006, libNombre:'Ciervos', libAutor:'Rafael', libFechaPUb:'15/07/1998'},
+{libCodigo:2007, libNombre:'Focas', libAutor:'Juan', libFechaPUb:'16/07/1998'},
+{libCodigo:2008, libNombre:'Hormigas', libAutor:'Pedro', libFechaPUb:'17/07/1998'},
+{libCodigo:2009, libNombre:'Jirafas', libAutor:'Juan', libFechaPUb:'18/07/1998'},
+{libCodigo:2010, libNombre:'Medusas', libAutor:'Maria', libFechaPUb:'19/07/1998'}]);
+
+-- 1. Consulta para obtener todos los libros cuya fecha de publicación sea menor a "15/07/1998":
+db.clLibros.find({ libFechaPUb: { $lt: "12/07/1998" } });
+
+-- 2. Consulta para obtener todos los libros cuyo código sea mayor que 2003:
+db.clLibros.find({ libCodigo: { $gt: 2008 } });
+
+-- 3. Consulta para obtener todos los libros cuyo autor sea "Rafael":
+db.clLibros.find({ libAutor: "Rafael" });
+
+-- 4. Consulta para obtener todos los libros cuyo código esté entre 2001 y 2004:
+db.clLibros.find({ libCodigo: { $gte: 2001, $lte: 2004 } });
+
+-- 5. Consulta para obtener todos los libros cuyo autor sea "Juan" o cuyo nombre sea "Orugas":
+db.clLibros.find({ $or: [ { libAutor: "Juan" }, { libNombre: "Orugas" } ] });
+
+db.createCollection('clInasistencias');
+db.clInasistencias.insertOne({inaNombre:'Juan', inaApellido:'Lourdez', inaFecha:'27/06/2023', inaMotivo:'Incapacidad', inaPrograma:'ADSO', inaFicha:2560664});
+db.clInasistencias.insertOne({inaNombre:'Laura', inaApellido:'Rodriguez', inaFecha:'28/06/2023', inaMotivo:'Incapacidad', inaPrograma:'ADSO', inaFicha:2560664});

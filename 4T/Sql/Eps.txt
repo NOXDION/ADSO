@@ -1,0 +1,225 @@
+CREATE DATABASE Eps;
+
+CREATE TABLE hospitales (
+    cod_hospital INT PRIMARY KEY NOT NULL,
+    nombre VARCHAR(30) NOT NULL,
+    direccion VARCHAR(30) NOT NULL,
+    num_plazas INT NOT NULL
+    );
+
+CREATE TABLE personas (
+    cod_hospital INT NOT NULL,
+    dni INT NOT NULL UNIQUE,
+    apellidos VARCHAR(50) NOT NULL,
+    funcion VARCHAR(20) NOT NULL,
+    salario FLOAT NOT NULL,
+    FOREIGN KEY(cod_hospital) REFERENCES hospitales(cod_hospital)
+    );
+
+CREATE TABLE medicos (
+    cod_hospital INT NOT NULL,
+    dni INT NOT NULL,
+    apellidos VARCHAR(50) NOT NULL,
+    especialidad VARCHAR(20) NOT NULL,
+    FOREIGN KEY(cod_hospital) REFERENCES hospitales(cod_hospital),
+    FOREIGN KEY(dni) REFERENCES personas(dni)
+    );
+
+INSERT INTO hospitales VALUES(1, 'Rafael Mendez', 'Gran via 7', 250);
+INSERT INTO hospitales VALUES(2, 'Reina Sofia', 'Junterones 5', 225);
+INSERT INTO hospitales VALUES(3, 'Principe Asturias', 'Avenida Colon', 150);
+INSERT INTO hospitales VALUES(4, 'Virgen de la Arrixaca', 'Avenida Juan Carlos I', 250);
+
+INSERT INTO personas VALUES(1, 12345678, 'Garcia Hernandez, Eladio', 'CONSERJE', 1200);
+INSERT INTO personas VALUES(1, 87654321, 'Fuentes Bermejo, Carlos', 'DIRECTOR', 2000);
+INSERT INTO personas VALUES(2, 55544433, 'Gonzales Marin, Alicia', 'CONSERJE', 1200);
+INSERT INTO personas VALUES(1, 66655544, 'Castillo Montes, Pedro', 'MEDICO', 1700);
+INSERT INTO personas VALUES(2, 22233322, 'Tristan Garcia, Ana', 'MEDICO', 1900);
+INSERT INTO personas VALUES(3, 55544411, 'Ruiz Hernandez, Caridad', 'MEDICO', 1900);
+INSERT INTO personas VALUES(3, 99988333, 'Serrano Diaz, Alejandro', 'DIRECTOR', 2400);
+INSERT INTO personas VALUES(4, 33222111, 'Mesa del Castillo, Juan', 'MEDICO', 2200);
+INSERT INTO personas VALUES(2, 22233333, 'Martinez Molina, Andres', 'MEDICO', 1600);
+INSERT INTO personas VALUES(4, 55544412, 'Jimenez Jimenez, Dolores', 'CONSERJE', 1200);
+INSERT INTO personas VALUES(4, 22233311, 'Martinez Molina, Gloria', 'MEDICO', 1600);
+
+INSERT INTO medicos VALUES(1, 66655544, 'Castillo Montes, Pedro', 'PSIQUIATRA');
+INSERT INTO medicos VALUES(2, 22233322, 'Tristan Garcia, Ana', 'CIRUJANO');
+INSERT INTO medicos VALUES(4, 33222111, 'Mesa del Castillo, Juan', 'DERMATOLOGO');
+INSERT INTO medicos VALUES(2, 22233333, 'Martinez Molina, Andres', 'CIRUJANO');
+INSERT INTO medicos VALUES(4, 22233311, 'Martinez Molina, Gloria', 'PSIQUIATRA');
+
+----------------------------------------------------------------------------------------
+-- Consultas
+
+-- 1) Mostrar el número de médicos que pertenecen a cada hospital, ordenado por número descendente de hospital.
+SELECT hospitales.cod_hospital, hospitales.nombre AS Hospital, COUNT(dni) AS Medicos FROM medicos
+INNER JOIN hospitales ON hospitales.cod_hospital = medicos.cod_hospital
+GROUP BY medicos.cod_hospital DESC;
+
+-- 2) Realizar una consulta en la que se muestre por cada hospital el nombre de las especialidades que tiene.
+SELECT hospitales.cod_hospital, nombre, especialidad FROM hospitales
+LEFT JOIN medicos ON medicos.cod_hospital = hospitales.cod_hospital
+ORDER BY hospitales.cod_hospital;
+
+-- 3) Realizar una consulta en la que aparezca por cada hospital y en cada especialidad el número de médicos
+-- (tendrás que partir de la consulta anterior y utilizar GROUP BY).
+SELECT hospitales.cod_hospital, nombre, especialidad, COUNT(medicos.dni) AS Medicos FROM hospitales
+LEFT JOIN medicos ON medicos.cod_hospital = hospitales.cod_hospital
+GROUP BY hospitales.cod_hospital, medicos.especialidad;
+
+-- 4) Obtener por cada hospital el número de empleados.
+SELECT personas.cod_hospital, hospitales.nombre, COUNT(dni) AS Empleados FROM personas
+INNER JOIN hospitales ON hospitales.cod_hospital = personas.cod_hospital
+GROUP BY personas.cod_hospital;
+
+-- 5) Obtener por cada especialidad el número de trabajadores.
+SELECT especialidad, COUNT(dni) AS Trabajadores FROM medicos
+GROUP BY especialidad;
+
+-- 6) Visualizar la especialidad que tenga más médicos.
+SELECT especialidad, COUNT(dni) AS Trabajadores FROM medicos
+GROUP BY especialidad
+ORDER BY Trabajadores DESC LIMIT 1;
+
+-- 7) ¿Cuál es el nombre del hospital que tiene mayor número de plazas?
+SELECT nombre, num_plazas FROM hospitales
+ORDER BY num_plazas DESC LIMIT 1;
+
+-- 8) Obtener el número de médicos que pertenecen a cada hospital, mostrando las columnas
+-- COD_HOSPITAL, NOMBRE y NÚMERO DE MÉDICOS. En el resultado deben aparecer también los datos de los hospitales que no tienen médicos.
+SELECT hospitales.cod_hospital, hospitales.nombre, COUNT(personas.dni) AS NumeroMedicos
+FROM hospitales
+INNER JOIN personas ON personas.cod_hospital = hospitales.cod_hospital
+WHERE personas.funcion = 'MEDICO'
+GROUP BY hospitales.cod_hospital;
+
+
+-----------------------------------------------------------------------------
+-- Funciones, procedimientos almacenados y vistas
+
+-- 1) Mostrar el número de médicos que pertenecen a cada hospital, ordenado por número descendente de hospital.
+DELIMITER //
+CREATE FUNCTION obNumeroMedicos(var INT) RETURNS INT
+BEGIN
+    DECLARE numMedicos INT;
+    SELECT COUNT(dni) INTO numMedicos FROM medicos WHERE cod_hospital = var;
+    RETURN numMedicos;
+END//
+DELIMITER ;
+
+SELECT obNumeroMedicos(2);
+
+
+-- 2) Realizar una consulta en la que se muestre por cada hospital el nombre de las especialidades que tiene.
+DELIMITER //
+CREATE PROCEDURE mostrarEspecialidades()
+BEGIN
+    SELECT hospitales.cod_hospital, nombre, especialidad FROM hospitales
+    INNER JOIN medicos ON medicos.cod_hospital = hospitales.cod_hospital;
+END//
+DELIMITER ;
+
+CALL mostrarEspecialidades;
+
+
+-- 3) Realizar una consulta en la que aparezca por cada hospital y en cada especialidad el número de médicos
+-- (tendrás que partir de la consulta anterior y utilizar GROUP BY).
+CREATE VIEW numMedicosPorEspecialidad AS
+SELECT hospitales.cod_hospital, nombre, especialidad, COUNT(medicos.dni) AS Medicos FROM hospitales
+LEFT JOIN medicos ON medicos.cod_hospital = hospitales.cod_hospital
+GROUP BY hospitales.cod_hospital, medicos.especialidad;
+
+SELECT * FROM numMedicosPorEspecialidad;
+
+
+-- 4) Obtener por cada hospital el número de empleados.
+DELIMITER //
+CREATE PROCEDURE obNumEmpleados()
+BEGIN
+    SELECT personas.cod_hospital, hospitales.nombre, COUNT(dni) AS Empleados FROM personas
+    INNER JOIN hospitales ON hospitales.cod_hospital = personas.cod_hospital
+    GROUP BY personas.cod_hospital;
+END//
+DELIMITER ;
+
+CALL obNumEmpleados;
+
+
+-- 5) Obtener por cada especialidad el número de trabajadores.
+CREATE VIEW numTrabajadoresPorEspecialidad AS
+SELECT especialidad, COUNT(dni) AS Trabajadores FROM medicos
+GROUP BY especialidad;
+
+SELECT * FROM numTrabajadoresPorEspecialidad;
+
+-- 6) Visualizar la especialidad que tenga más médicos.
+CREATE VIEW especialidadMaxMedicos AS
+SELECT especialidad, COUNT(dni) AS Trabajadores FROM medicos
+GROUP BY especialidad
+ORDER BY Trabajadores DESC LIMIT 1;
+
+SELECT * FROM especialidadMaxMedicos;
+
+-- 7) ¿Cuál es el nombre del hospital que tiene mayor número de plazas?
+DELIMITER //
+CREATE FUNCTION obNombreHospitalMayorPlazas()
+RETURNS VARCHAR(30)
+BEGIN
+    DECLARE nombreHospital VARCHAR(30);
+    SELECT nombre INTO nombreHospital FROM hospitales
+    ORDER BY num_plazas DESC LIMIT 1;
+    RETURN nombreHospital;
+END//
+DELIMITER ;
+
+SELECT obNombreHospitalMayorPlazas();
+
+-- 8) Obtener el número de médicos que pertenecen a cada hospital, mostrando las columnas
+-- COD_HOSPITAL, NOMBRE y NÚMERO DE MÉDICOS. En el resultado deben aparecer también los datos de los hospitales que no tienen médicos.
+DELIMITER //
+CREATE PROCEDURE obNumMedicosPorHospital()
+BEGIN
+    SELECT hospitales.cod_hospital, hospitales.nombre, COUNT(personas.dni) AS NumeroMedicos
+    FROM hospitales
+    INNER JOIN personas ON personas.cod_hospital = hospitales.cod_hospital
+    WHERE personas.funcion = 'MEDICO'
+    GROUP BY hospitales.cod_hospital;
+END//
+DELIMITER ;
+
+CALL obNumMedicosPorHospital;
+
+-- Triggers
+
+-- Registrar personas
+CREATE TABLE regPersonas (
+    regCod_hospital INT NOT NULL,
+    regDni INT NOT NULL,
+    regApellidos VARCHAR(50) NOT NULL,
+    regFuncion VARCHAR(20) NOT NULL,
+    regSalario FLOAT NOT NULL
+);
+
+CREATE TRIGGER personasRegistradas AFTER INSERT ON personas FOR EACH ROW
+INSERT INTO regPersonas
+VALUES (NEW.cod_hospital, NEW.dni, NEW.apellidos, NEW.funcion, NEW.salario);
+
+INSERT INTO personas VALUES (1, 12345679, 'Acosta Hernandez, Felipe', 'CONSERJE', 1200);
+INSERT INTO personas VALUES (2, 87654322, 'Vargas Bermejo, Ramon', 'MEDICO', 2000);
+
+-- Actulizacion especialidad medicos
+CREATE TABLE actEspecialidadMedicos (
+    actCod_hospital INT,
+    actDni INT,
+    actApellidos VARCHAR(50),
+    anterior_especialidad VARCHAR(20),
+    nuevo_especialidad VARCHAR(20),
+    usuario VARCHAR(20)
+);
+
+CREATE TRIGGER actualizacionEspecialidadMedicos BEFORE UPDATE ON medicos FOR EACH ROW
+INSERT INTO actEspecialidadMedicos
+VALUES (OLD.cod_hospital, OLD.dni, OLD.apellidos, OLD.especialidad, NEW.especialidad, CURRENT_USER());
+
+UPDATE medicos SET especialidad = 'PSICODERMATOLOGO' WHERE dni = 33222111;
+UPDATE medicos SET especialidad = 'PSIQUIATRA FORENSE' WHERE dni = 22233311;

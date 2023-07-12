@@ -1,0 +1,57 @@
+CREATE TABLE Clientes (
+    cliDoc INT PRIMARY KEY,
+    cliNombre VARCHAR(20),
+    cliApellido VARCHAR(20),
+	cliDireccion VARCHAR(20),
+    cliTelefono VARCHAR(20)
+);
+
+CREATE TABLE Productos (
+    proId INT PRIMARY KEY,
+    proNombre VARCHAR(20),
+    proValor FLOAT,
+    proTipo VARCHAR(20)
+);
+
+CREATE TABLE Factura (
+    facId INT PRIMARY KEY AUTO_INCREMENT,
+    facFecha DATE,
+    cliDoc INT,
+    FOREIGN KEY (cliDoc) REFERENCES clientes (cliDoc)
+);
+
+CREATE TABLE DetalleFactura (
+    detFacId INT PRIMARY KEY AUTO_INCREMENT,
+    facId INT,
+    proId INT,
+    detFacCantidad INT,
+    FOREIGN KEY (facId) REFERENCES factura (facId),
+    FOREIGN KEY (proId) REFERENCES productos (proId)
+);
+
+
+INSERT INTO clientes VALUES
+(10001,'Juan','Martinez','Carrera 1','300001'),
+(10002,'Pedro','Acosta','Carrera 2','300002'),
+(10003,'Maria','Catro','Carrera 3','300003'),
+(10004,'Valentina','Lopez','Carrera 4','300004');
+
+INSERT INTO productos VALUES
+(1,'Gaseosa',1000,'Bebidas'),
+(2,'Cerveza',2000,'Bebidas'),
+(3,'Jugo',3000,'Bebidas'),
+(4,'Agua',4000,'Bebidas');
+
+INSERT INTO factura VALUES
+(NULL,'2023-05-22',10001),
+(NULL,'2023-05-24',10002);
+
+INSERT INTO detallefactura VALUES
+(NULL,1,1,2),
+(NULL,1,2,1),
+(NULL,2,3,3);
+
+SELECT factura.facId,facFecha,clientes.cliDoc,cliNombre,cliApellido,proNombre, detFacCantidad, proValor FROM clientes 
+INNER JOIN factura ON clientes.cliDoc = factura.cliDoc
+INNER JOIN detallefactura ON detallefactura.facId = factura.facId
+INNER JOIN productos ON productos.proId = detallefactura.proId

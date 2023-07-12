@@ -1,0 +1,707 @@
+CREATE DATABASE Empresa2;
+
+CREATE TABLE depart (dept_no TINYINT PRIMARY KEY,
+                    dnombre VARCHAR(60),
+                    loc varchar(80)
+                    );
+
+CREATE TABLE emple (emp_no SMALLINT PRIMARY KEY,
+                    apellido VARCHAR(60),
+                    oficio VARCHAR(60),
+                    dir SMALLINT,
+                    fecha_alt DATE,
+                    salario FLOAT,
+                    comision FLOAT,
+                    dept_no TINYINT,
+                    FOREIGN KEY(dept_no) REFERENCES depart(dept_no) ON DELETE CASCADE ON UPDATE CASCADE 
+                    );
+
+INSERT INTO depart VALUES (10,'CONTABILIDAD','SEVILLA');
+INSERT INTO depart VALUES (20,'INVESTIGACION','MADRID');
+INSERT INTO depart VALUES (30,'VENTAS','BARCELONA');
+INSERT INTO depart VALUES (40,'PRODUCCION','BILBAO');
+
+
+INSERT INTO emple VALUES (7369,'SANCHEZ','EMPLEADO',7902,'1990-12-17',1040,NULL,20);
+INSERT INTO emple VALUES (7499,'ARROYO','VENDEDOR',7698,'1990-02-20', 1500,390,30);
+INSERT INTO emple VALUES (7521,'SALA','VENDEDOR',7698,'1991-02-22', 1625,650,30);
+INSERT INTO emple VALUES (7566,'JIMENEZ','DIRECTOR',7839,'1991-04-02', 2900,NULL,20);
+INSERT INTO emple VALUES (7654,'MARTIN','VENDEDOR',7698,'1991-09-29', 1600,1020,30);
+INSERT INTO emple VALUES (7698,'NEGRO','DIRECTOR',7839,'1991-05-01', 3005,NULL,30);
+INSERT INTO emple VALUES (7782,'CEREZO','DIRECTOR',7839,'1991-06-09', 2885,NULL,10);
+INSERT INTO emple VALUES (7788,'GIL','ANALISTA',7566,'1991-11-09', 3000,NULL,20);
+INSERT INTO emple VALUES (7839,'REY','PRESIDENTE',NULL,'1991-11-17', 4100,NULL,10);
+INSERT INTO emple VALUES (7844,'TOVAR','VENDEDOR',7698,'1991-09-08', 1350,0,30);
+INSERT INTO emple VALUES (7876,'ALONSO','EMPLEADO',7788,'1991-09-23', 1430,NULL,20);
+INSERT INTO emple VALUES (7900,'JIMENO','EMPLEADO',7698,'1991-12-03', 1335,NULL,30);
+INSERT INTO emple VALUES (7902,'FERNANDEZ','ANALISTA',7566,'1991-12-03',3000, NULL,20);
+INSERT INTO emple VALUES (7934,'MUÑOZ','EMPLEADO',7782,'1992-01-23', 1690,NULL,10);
+
+
+--1. Crear un procedimiento el cual al depositar el numero de departamento nos muestre cuantas personas hay alli.
+
+DELIMITER $$
+CREATE PROCEDURE personasDepartamento (IN valor INT)
+BEGIN
+	SELECT COUNT(emp_no) as Existentes FROM emple where dept_no = valor;
+END
+$$
+
+CALL personasDepartamento (10)
+
+
+--2. Crear un procedimiento que nos muestre los oficios de la direccion 7839.
+
+DELIMITER $$
+CREATE PROCEDURE oficiosDireccion (IN valor INT)
+BEGIN
+	SELECT apellido, oficio FROM emple where dir = valor;
+END
+$$
+
+CALL oficiosDireccion (7839);
+
+
+--3. Crear un procedimiento que nos muestre los apellidos de los empleados con salario mayor igual a 3005.
+
+DELIMITER $$
+CREATE PROCEDURE empleadoSalario()
+BEGIN
+	SELECT apellido FROM emple where salario >= 3005;
+END
+$$
+
+CALL empleadoSalario;
+
+
+----------------------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------------------------
+--Procedimientos Almacenados
+
+-- 1.Procedimiento que muestra los empleados que pertenecen a un departamento especifico:
+
+DELIMITER $$
+CREATE PROCEDURE empleadosDepartamento(IN dept INT)
+BEGIN
+    SELECT * FROM emple WHERE dept_no = dept;
+END $$
+DELIMITER ;
+
+CALL empleadosDepartamento(30);
+
+-- 2. Procedimiento que calcula el salario promedio de todos los empleados:
+
+DELIMITER $$
+CREATE PROCEDURE salarioPromedio()
+BEGIN
+    SELECT AVG(salario) AS salarioPromedio FROM emple;
+END $$
+DELIMITER ;
+
+CALL salarioPromedio();
+
+--3. Procedimiento para mostrar los empleados con el salario más bajo:
+
+DELIMITER $$
+CREATE PROCEDURE salarioBajo()
+BEGIN
+    SELECT apellido, salario
+    FROM emple
+    WHERE salario = (SELECT MIN(salario) FROM emple);
+END
+$$
+DELIMITER ;
+
+CALL salarioBajo;
+
+--4. Procedimiento que muestra los empleados con el salario más alto:
+
+DELIMITER $$
+CREATE PROCEDURE salarioAlto()
+BEGIN
+    SELECT * FROM emple WHERE salario = (SELECT MAX(salario) FROM emple);
+END $$
+DELIMITER ;
+
+CALL salarioAlto;
+
+--5. Procedimiento que muestra los empleados que tienen comisiones:
+
+DELIMITER $$
+CREATE PROCEDURE empleadosComision()
+BEGIN
+    SELECT * FROM emple WHERE comision IS NOT NULL;
+END $$
+DELIMITER ;
+
+CALL empleadosComision;
+
+
+--6. Procedimiento que muestra los empleados que fueron contratados en una fecha específica:
+
+DELIMITER $$
+CREATE PROCEDURE empleadosFecha(IN fecha DATE)
+BEGIN
+    SELECT * FROM emple WHERE fecha_alt = fecha;
+END $$
+DELIMITER ;
+
+CALL empleadosFecha ('1990-12-17');
+
+
+--7. Procedimiento para mostrar los empleados con salario superior a un valor dado:
+
+DELIMITER $$
+CREATE PROCEDURE salarioSuperior(IN valor FLOAT)
+BEGIN
+    SELECT * FROM emple WHERE salario > valor;
+END
+$$
+DELIMITER ;
+
+CALL salarioSuperior(4000);
+
+
+--8. Procedimiento para mostrar los empleados que no tienen asignada una dirección:
+
+DELIMITER $$
+CREATE PROCEDURE empleadosSinDireccion()
+BEGIN
+    SELECT * FROM emple WHERE dir IS NULL;
+END
+$$
+DELIMITER ;
+
+CALL empleadosSinDireccion;
+
+--9. Procedimiento para mostrar los empleados contratados antes de una fecha dada:
+
+DELIMITER $$
+CREATE PROCEDURE empleadosPorFecha(IN fecha DATE)
+BEGIN
+    SELECT * FROM emple WHERE fecha_alt < fecha;
+END
+$$
+DELIMITER ;
+
+CALL empleadosPorFecha('1990-12-30');
+
+
+--10. Procedimiento que muestra los empleados que tienen un salario entre dos valores dados:
+
+DELIMITER $$
+CREATE PROCEDURE salarioRango(IN salario_min FLOAT, IN salario_max FLOAT)
+BEGIN
+    SELECT * FROM emple WHERE salario BETWEEN salario_min AND salario_max;
+END $$
+DELIMITER ;
+
+CALL salarioRango(1000,2000);
+
+
+---------------------------------------------------------------------------------------------
+--Funciones
+
+--1.Función que calcula el salario promedio de todos los empleados:
+
+DELIMITER //
+CREATE FUNCTION obSalarioPromedio() RETURNS FLOAT
+BEGIN
+    DECLARE promedio FLOAT;
+    SELECT AVG(salario) INTO promedio FROM emple;
+    RETURN promedio;
+END//
+DELIMITER ;
+
+SELECT obSalarioPromedio();
+
+--2. Función que obtiene el nombre completo de un empleado dado su número de empleado:
+
+DELIMITER //
+CREATE FUNCTION obApellidoEmpleado(empId INT) RETURNS VARCHAR(100)
+BEGIN
+    DECLARE apellido2 VARCHAR(100);
+    SELECT apellido INTO apellido2 FROM emple WHERE emp_no = empId;
+    RETURN apellido2;
+END//
+DELIMITER ;
+
+SELECT obApellidoEmpleado(7369);
+
+
+--3. Función que cuenta la cantidad de empleados en un departamento dado su número de departamento:
+
+DELIMITER //
+CREATE FUNCTION obcantidadEmpleados(deptId INT) RETURNS INT
+BEGIN
+    DECLARE cantidad INT;
+    SELECT COUNT(*) INTO cantidad FROM emple WHERE dept_no = deptId;
+    RETURN cantidad;
+END//
+DELIMITER ;
+
+SELECT obcantidadEmpleados(20);
+
+
+--4. Función que obtiene el salario máximo de todos los empleados:
+
+DELIMITER //
+CREATE FUNCTION obMaxSalario() RETURNS FLOAT
+BEGIN
+    DECLARE maxSalario FLOAT;
+    SELECT MAX(salario) INTO maxSalario FROM emple;
+    RETURN maxSalario;
+END//
+DELIMITER ;
+
+SELECT obMaxSalario();
+
+--5. Función que calcula la suma total de salarios de todos los empleados:
+
+DELIMITER //
+CREATE FUNCTION obTotalSalarios() RETURNS FLOAT
+BEGIN
+    DECLARE totalSalarios FLOAT;
+    SELECT SUM(salario) INTO totalSalarios FROM emple;
+    RETURN totalSalarios;
+END//
+DELIMITER ;
+
+SELECT obTotalSalarios();
+
+--6. Función que obtiene el salario promedio de los empleados en un departamento dado:
+
+DELIMITER //
+CREATE FUNCTION obSalarioPromedioDep(deptId INT) RETURNS FLOAT
+BEGIN
+    DECLARE promedioSalario FLOAT;
+    SELECT AVG(salario) INTO promedioSalario FROM emple WHERE dept_no = deptId;
+    RETURN promedioSalario;
+END//
+DELIMITER ;
+
+SELECT obSalarioPromedioDep(30);
+
+-- 7. Función que obtiene la cantidad de departamentos en la empresa:
+
+DELIMITER //
+CREATE FUNCTION obCantidadDep() RETURNS INT
+BEGIN
+    DECLARE cantidad INT;
+    SELECT COUNT(*) INTO cantidad FROM depart;
+    RETURN cantidad;
+END//
+DELIMITER ;
+
+SELECT obCantidadDep();
+
+-- 8. Función que calcula el salario total de un empleado dado su número de empleado:
+
+DELIMITER //
+CREATE FUNCTION obSalarioTotalEmpleado(empId INT) RETURNS FLOAT
+BEGIN
+    DECLARE salarioTotal FLOAT;
+    SELECT salario INTO salarioTotal FROM emple WHERE emp_no = empId;
+    RETURN salarioTotal;
+END//
+DELIMITER ;
+
+SELECT obSalarioTotalEmpleado(7566);
+
+-- 9. Función que obtiene el salario mínimo de todos los empleados:
+
+DELIMITER //
+CREATE FUNCTION obMinSalario() RETURNS FLOAT
+BEGIN
+    DECLARE minSalario FLOAT;
+    SELECT MIN(salario) INTO minSalario FROM emple;
+    RETURN minSalario;
+END//
+DELIMITER ;
+
+SELECT obMinSalario();
+
+-- 10. Función que obtiene la fecha de alta de un empleado dado su número de empleado:
+
+DELIMITER //
+CREATE FUNCTION obFechaAlta(empId INT) RETURNS DATE
+BEGIN
+    DECLARE fechaAlta DATE;
+    SELECT fecha_alt INTO fechaAlta FROM emple WHERE emp_no = empId;
+    RETURN fechaAlta;
+END//
+DELIMITER ;
+
+SELECT obFechaAlta(7844);
+
+
+----------------------------------------------------------------------------------------------
+-- Consultas
+
+-- 1). Visualizar el número de empleados de cada departamento. Utilizar GROUP BY para agrupar por departamento.
+SELECT depart.dept_no as NoDepartamento,
+dnombre as Departamento,
+COUNT(emple.emp_no) as NoEmpleados FROM depart
+INNER JOIN emple ON emple.dept_no = depart.dept_no
+GROUP BY depart.dept_no;
+
+-- 2). Visualizar los departamentos con más de 5 empleados. Utilizar GROUP BY para agrupar por departamento y HAVING para establecer la condición sobre los grupos.
+SELECT depart.dept_no as NoDepartamento,
+dnombre as Departamento,
+COUNT(emple.emp_no) as NoEmpleados FROM depart
+INNER JOIN emple ON emple.dept_no = depart.dept_no
+GROUP BY depart.dept_no HAVING COUNT(emple.emp_no) >= 5;
+
+-- 3). Hallar la media de los salarios de cada departamento (utilizar la función AVG y GROUP BY).
+SELECT depart.dept_no as NoDepartamento,
+dnombre as Departamento,
+AVG(salario) as SalarioPromedio FROM depart
+INNER JOIN emple ON emple.dept_no = depart.dept_no
+GROUP BY depart.dept_no;
+
+-- 4). Visualizar el nombre de los empleados vendedores del departamento 'VENTAS' (Nombre del departamento='VENTAS', oficio='VENDEDOR').
+SELECT apellido, oficio FROM emple WHERE dept_no = 30 AND oficio = 'VENDEDOR';
+
+-- 5). Visualizar el número de vendedores del departamento 'VENTAS' (utilizar la función COUNT sobre la consulta anterior).
+SELECT oficio, COUNT(emp_no) as Personas FROM emple WHERE dept_no = 30 AND oficio = 'VENDEDOR';
+
+-- 6). Visualizar los oficios de los empleados del departamento 'VENTAS'.
+SELECT apellido, oficio FROM emple WHERE dept_no = 30;
+
+-- 7). A partir de la tabla EMPLE, visualizar el número de empleados de cada departamento cuyo oficio sea 'EMPLEADO'
+-- (utilizar GROUP BY para agrupar por departamento. En la cláusula WHERE habrá que indicar que el oficio es 'EMPLEADO').
+SELECT depart.dept_no as NoDepartamento,
+dnombre as Departamento,
+COUNT(emple.emp_no) as NoEmpleados FROM depart
+INNER JOIN emple ON emple.dept_no = depart.dept_no
+WHERE emple.oficio = 'EMPLEADO'
+GROUP BY depart.dept_no;
+
+-- 8). Visualizar el departamento con más empleados.
+SELECT emple.dept_no, depart.dnombre, COUNT(emple.emp_no) AS Empleados FROM emple
+INNER JOIN depart ON depart.dept_no = emple.dept_no
+GROUP BY emple.dept_no
+ORDER BY Empleados DESC LIMIT 1;
+
+-- 9). Mostrar los departamentos cuya media de salarios sea mayor que la media de salarios de todos los empleados.
+SELECT emple.dept_no, dnombre, AVG(salario) AS SalarioPromedio FROM emple
+INNER JOIN depart ON depart.dept_no = emple.dept_no
+GROUP BY emple.dept_no
+HAVING SalarioPromedio > (SELECT AVG(salario) FROM emple);
+
+-- 10). Para cada oficio obtener la suma de salarios.
+SELECT oficio, SUM(salario) FROM emple
+GROUP BY oficio;
+
+-- 11). Visualizar la suma de salarios de cada oficio del departamento 'VENTAS'.
+SELECT dnombre, oficio, SUM(salario) FROM emple
+INNER JOIN depart ON depart.dept_no = emple.dept_no
+WHERE depart.dnombre = 'VENTAS'
+GROUP BY oficio;
+
+-- 12). Visualizar el número de departamento que tenga más empleados cuyo oficio sea empleado.
+SELECT emple.dept_no, dnombre, COUNT(emp_no) AS Empleados FROM emple
+INNER JOIN depart ON depart.dept_no = emple.dept_no
+WHERE emple.oficio = 'EMPLEADO'
+GROUP BY emple.dept_no
+ORDER BY Empleados DESC LIMIT 1;
+
+-- 13). Mostrar el número de oficios distintos de cada departamento.
+SELECT emple.dept_no, dnombre, COUNT(DISTINCT oficio) AS Oficios FROM emple
+INNER JOIN depart ON depart.dept_no = emple.dept_no
+GROUP BY emple.dept_no;
+
+-- 14) Mostrar los departamentos que tengan más de dos personas trabajando en la misma profesión.
+SELECT dept_no, oficio, COUNT(emple.emp_no) AS Personas  FROM emple
+GROUP BY dept_no, oficio HAVING COUNT(*)>2;
+
+-- 15). A partir de las tablas EMPLE y DEPART mostrar los datos del departamento que no tiene ningún empleado.
+SELECT * FROM depart
+LEFT JOIN emple ON depart.dept_no = emple.dept_no
+WHERE emple.emp_no IS NULL;
+
+-- 16). Mostrar el número de empleados de cada departamento. En la salida se debe mostrar también los departamentos que no tienen ningún empleado.
+SELECT depart.dept_no, dnombre, COUNT(emple.emp_no) AS Empleados FROM emple
+RIGHT JOIN depart ON depart.dept_no = emple.dept_no
+GROUP BY depart.dept_no;
+
+-- 17). Obtener la suma de salarios de cada departamento, mostrando las columnas DEPT_NO, SUMA DE SALARIOS
+-- y DNOMBRE. En el resultado también se deben mostrar los departamentos que no tienen asignados empleados.
+SELECT depart.dept_no, dnombre, SUM(emple.salario) AS TotalSalario FROM emple
+RIGHT JOIN depart ON depart.dept_no = emple.dept_no
+GROUP BY depart.dept_no;
+
+-- 18). Utilizar la función IFNULL (o COALESCE) en la consulta anterior para que en el
+-- caso de que un departamento no tenga empleados, aparezca como suma de salarios el valor 0.
+SELECT depart.dept_no, dnombre, COALESCE(SUM(emple.salario),0) AS TotalSalario FROM emple
+RIGHT JOIN depart ON depart.dept_no = emple.dept_no
+GROUP BY depart.dept_no;
+
+
+-----------------------------------------------------------------------------
+-- Funciones, procedimientos almacenados y vistas
+
+-- 1). Visualizar el número de empleados de cada departamento. Utilizar GROUP BY para agrupar por departamento.
+DELIMITER //
+CREATE FUNCTION obEmpleadosPorDepartamento(var TINYINT) RETURNS INT
+BEGIN
+    DECLARE numEmpleados INT;
+    SELECT COUNT(emp_no) INTO numEmpleados FROM depart
+    INNER JOIN emple ON emple.dept_no = depart.dept_no
+    WHERE depart.dept_no = var;
+    RETURN numEmpleados;
+END//
+DELIMITER ;
+
+SELECT obEmpleadosPorDepartamento(30);
+
+-- 2). Visualizar los departamentos con más de 5 empleados. Utilizar GROUP BY para agrupar por departamento y HAVING para establecer la condición sobre los grupos.
+CREATE VIEW departConMasDeCincoEmpleados AS
+SELECT depart.dept_no AS NoDepartamento,
+dnombre AS Departamento,
+COUNT(emple.emp_no) AS NoEmpleados FROM depart
+INNER JOIN emple ON emple.dept_no = depart.dept_no
+GROUP BY depart.dept_no HAVING COUNT(emple.emp_no) > 5;
+
+SELECT * FROM departConMasDeCincoEmpleados;
+
+
+-- 3). Hallar la media de los salarios de cada departamento (utilizar la función AVG y GROUP BY).
+DELIMITER //
+CREATE FUNCTION obSalarioPromedioPorDepartamento(var TINYINT) RETURNS DECIMAL(20,2)
+BEGIN
+    DECLARE salarioPromedio DECIMAL(20,2);
+    SELECT AVG(salario) INTO salarioPromedio FROM depart
+    INNER JOIN emple ON emple.dept_no = depart.dept_no
+    WHERE depart.dept_no = var;
+    RETURN salarioPromedio;
+END//
+DELIMITER ;
+
+SELECT obSalarioPromedioPorDepartamento(20);
+
+
+-- 4). Visualizar el nombre de los empleados vendedores del departamento 'VENTAS' (Nombre del departamento='VENTAS', oficio='VENDEDOR').
+CREATE VIEW empleadosVendedoresVentas AS
+SELECT apellido, oficio FROM emple
+WHERE dept_no = 30 AND oficio = 'VENDEDOR';
+
+SELECT * FROM empleadosVendedoresVentas;
+
+
+-- 5). Visualizar el número de vendedores del departamento 'VENTAS' (utilizar la función COUNT sobre la consulta anterior).
+DELIMITER //
+CREATE FUNCTION obNumeroVendedores(var1 TINYINT, var2 VARCHAR(20)) RETURNS INT
+BEGIN
+    DECLARE numVendedores INT;
+    SELECT COUNT(emp_no) INTO numVendedores FROM emple
+    WHERE dept_no = var1 AND oficio = var2;
+    RETURN numVendedores;
+END//
+DELIMITER ;
+
+SELECT obNumeroVendedores(30,'VENDEDOR');
+
+
+-- 6). Visualizar los oficios de los empleados del departamento 'VENTAS'.
+CREATE VIEW oficiosEmpleadosVentas AS
+SELECT apellido, oficio FROM emple
+WHERE dept_no = 30;
+
+SELECT * FROM oficiosEmpleadosVentas;
+
+
+-- 7). A partir de la tabla EMPLE, visualizar el número de empleados de cada departamento cuyo oficio sea 'EMPLEADO'
+-- (utilizar GROUP BY para agrupar por departamento. En la cláusula WHERE habrá que indicar que el oficio es 'EMPLEADO').
+CREATE VIEW empleadosPorDepartamento AS
+SELECT depart.dept_no AS NoDepartamento, dnombre AS Departamento, COUNT(emple.emp_no) AS NoEmpleados
+FROM depart
+INNER JOIN emple ON emple.dept_no = depart.dept_no
+WHERE emple.oficio = 'EMPLEADO'
+GROUP BY depart.dept_no;
+
+SELECT * FROM empleadosPorDepartamento;
+
+
+-- 8). Visualizar el departamento con más empleados.
+DELIMITER //
+CREATE PROCEDURE departamentoMaxEmpleados()
+BEGIN
+    SELECT emple.dept_no, depart.dnombre, COUNT(emple.emp_no) AS Empleados FROM emple
+    INNER JOIN depart ON depart.dept_no = emple.dept_no
+    GROUP BY emple.dept_no
+    ORDER BY Empleados DESC LIMIT 1;
+END//
+DELIMITER ;
+
+CALL departamentoMaxEmpleados;
+
+
+-- 9). Mostrar los departamentos cuya media de salarios sea mayor que la media de salarios de todos los empleados.
+DELIMITER //
+CREATE PROCEDURE departamentosMayorMedioSalario()
+BEGIN
+    SELECT emple.dept_no, dnombre, AVG(salario) AS SalarioPromedio FROM emple
+    INNER JOIN depart ON depart.dept_no = emple.dept_no
+    GROUP BY emple.dept_no
+    HAVING SalarioPromedio > (SELECT AVG(salario) FROM emple);
+END//
+DELIMITER ;
+
+CALL departamentosMayorMedioSalario;
+
+
+-- 10). Para cada oficio obtener la suma de salarios.
+DELIMITER //
+CREATE FUNCTION obSumaSalariosPorOficio(var VARCHAR(20)) RETURNS DECIMAL(20,2)
+BEGIN
+    DECLARE sumaSalarios DECIMAL(20,2);
+    SELECT SUM(salario) INTO sumaSalarios FROM emple
+    WHERE oficio = var;
+    RETURN sumaSalarios;
+END//
+DELIMITER ;
+
+SELECT obSumaSalariosPorOficio('DIRECTOR');
+
+-- 11). Visualizar la suma de salarios de cada oficio del departamento 'VENTAS'.
+DELIMITER //
+CREATE PROCEDURE sumaSalariosPorOficio(IN var VARCHAR(20))
+BEGIN
+    SELECT dnombre, oficio, SUM(salario) FROM emple
+    INNER JOIN depart ON depart.dept_no = emple.dept_no
+    WHERE depart.dnombre = var
+    GROUP BY oficio;
+END//
+DELIMITER ;
+
+CALL sumaSalariosPorOficio('CONTABILIDAD');
+
+-- 12). Visualizar el número de departamento que tenga más empleados cuyo oficio sea empleado.
+DELIMITER //
+CREATE PROCEDURE departamentoConMasEmpleados()
+BEGIN
+    SELECT emple.dept_no, dnombre, COUNT(emp_no) AS Empleados FROM emple
+    INNER JOIN depart ON depart.dept_no = emple.dept_no
+    WHERE emple.oficio = 'EMPLEADO'
+    GROUP BY emple.dept_no
+    ORDER BY Empleados DESC LIMIT 1;
+END//
+DELIMITER ;
+
+CALL departamentoConMasEmpleados;
+
+
+-- 13). Mostrar el número de oficios distintos de cada departamento.
+DELIMITER //
+CREATE PROCEDURE oficiosPorDepartamento()
+BEGIN
+    SELECT emple.dept_no, dnombre, COUNT(DISTINCT oficio) AS Oficios FROM emple
+    INNER JOIN depart ON depart.dept_no = emple.dept_no
+    GROUP BY emple.dept_no;
+END//
+DELIMITER ;
+
+CALL oficiosPorDepartamento;
+
+-- 14) Mostrar los departamentos que tengan más de dos personas trabajando en la misma profesión.
+DELIMITER //
+CREATE PROCEDURE personasMismaProfesion()
+BEGIN
+    SELECT dept_no, oficio, COUNT(emple.emp_no) AS Personas  FROM emple
+    GROUP BY dept_no, oficio HAVING COUNT(*)>2;
+END//
+DELIMITER ;
+
+CALL personasMismaProfesion;
+
+
+-- 15). A partir de las tablas EMPLE y DEPART mostrar los datos del departamento que no tiene ningún empleado.
+DELIMITER //
+CREATE PROCEDURE departamentoSinEmpleados()
+BEGIN
+    SELECT * FROM depart
+    LEFT JOIN emple ON depart.dept_no = emple.dept_no
+    WHERE emple.emp_no IS NULL;
+END//
+DELIMITER ;
+
+CALL departamentoSinEmpleados;
+
+-- 16). Mostrar el número de empleados de cada departamento. En la salida se debe mostrar también los departamentos que no tienen ningún empleado.
+CREATE VIEW personasPorDepartamento AS
+SELECT depart.dept_no, dnombre, COUNT(emple.emp_no) AS Empleados FROM emple
+RIGHT JOIN depart ON depart.dept_no = emple.dept_no
+GROUP BY depart.dept_no;
+
+SELECT * FROM personasPorDepartamento;
+
+
+-- 17). Obtener la suma de salarios de cada departamento, mostrando las columnas DEPT_NO, SUMA DE SALARIOS
+-- y DNOMBRE. En el resultado también se deben mostrar los departamentos que no tienen asignados empleados.
+CREATE VIEW salariosPorDepartamento AS
+SELECT depart.dept_no, dnombre, SUM(emple.salario) AS TotalSalario FROM emple
+RIGHT JOIN depart ON depart.dept_no = emple.dept_no
+GROUP BY depart.dept_no;
+
+SELECT * FROM salariosPorDepartamento;
+
+-- 18). Utilizar la función IFNULL (o COALESCE) en la consulta anterior para que en el
+-- caso de que un departamento no tenga empleados, aparezca como suma de salarios el valor 0.
+DELIMITER //
+CREATE PROCEDURE salariosPorDepartamentoIncluidosVacios()
+BEGIN
+    SELECT depart.dept_no, dnombre, COALESCE(SUM(emple.salario),0) AS TotalSalario FROM emple
+    RIGHT JOIN depart ON depart.dept_no = emple.dept_no
+    GROUP BY depart.dept_no;
+END//
+DELIMITER ;
+
+CALL salariosPorDepartamentoIncluidosVacios;
+
+
+-- Triggers
+
+-- Registro empleado
+CREATE TABLE regEmpleado (
+    regEmp_no SMALLINT,
+    regApellido VARCHAR(60),
+    regOficio VARCHAR(60),
+    regDir SMALLINT,
+    regFecha_alt DATE,
+    regSalario FLOAT,
+    regComision FLOAT,
+    regDept_no TINYINT
+    );
+
+CREATE TRIGGER registroEmpleado AFTER INSERT ON emple FOR EACH ROW
+INSERT INTO regEmpleado
+VALUES(new.emp_no, new.apellido, new.oficio, new.dir, new.fecha_alt, new.salario, new.comision,
+new.dept_no);
+
+INSERT INTO emple VALUES (8001, 'Gonzalez', 'ANALISTA', 7566, '2023-06-11', 3500, NULL, 20);
+INSERT INTO emple VALUES (8002, 'Martinez', 'VENDEDOR', 7698,'1990-04-20', 1600,390,30);
+
+
+-- Eliminacion empleado
+CREATE TABLE eliEmpleado (
+    eliEmp_no SMALLINT,
+    eliApellido VARCHAR(60),
+    eliOficio VARCHAR(60),
+    eliDir SMALLINT,
+    eliFecha_alt DATE,
+    eliSalario FLOAT,
+    eliComision FLOAT,
+    eliDept_no TINYINT,
+    usuario VARCHAR(20)
+    );
+
+CREATE TRIGGER eliminacionEmpleado BEFORE DELETE ON emple FOR EACH ROW
+INSERT INTO eliEmpleado
+VALUES(old.emp_no, old.apellido, old.oficio, old.dir, old.fecha_alt, old.salario, old.comision,
+old.dept_no, current_user());
+
+DELETE FROM emple WHERE emp_no = 8001;
+DELETE FROM emple WHERE emp_no = 8002;

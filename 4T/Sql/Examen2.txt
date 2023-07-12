@@ -1,0 +1,197 @@
+-- Dionigi Esteban Martinez Ruiz ADSO 2560664-B
+-- Mysql
+
+CREATE TABLE IF NOT EXISTS tbSexo (
+    sexCodigo CHAR(1) PRIMARY KEY,
+    sexNombre VARCHAR(10)
+    );
+
+CREATE TABLE IF NOT EXISTS tbPais (
+    paisCodigo VARCHAR(3) PRIMARY KEY,
+    paisNombre VARCHAR(60)
+    );
+
+CREATE TABLE IF NOT EXISTS tbDepartamento (
+    depCodigo VARCHAR(2) PRIMARY KEY,
+    depNombre VARCHAR(30),
+    paisCodigo VARCHAR(3),
+    FOREIGN KEY (paisCodigo) REFERENCES tbPais(paisCodigo)
+    );
+
+CREATE TABLE IF NOT EXISTS tbMunicipio (
+    munCodigo VARCHAR(5) PRIMARY KEY,
+    munNombre VARCHAR(60),
+    depCodigo VARCHAR(2),
+    FOREIGN KEY (depCodigo) REFERENCES tbDepartamento(depCodigo)
+    );
+
+CREATE TABLE IF NOT EXISTS tbResidencia (
+    resCodigoZonaTerritorial VARCHAR(6) PRIMARY KEY,
+    resNombreZonaTerritorial VARCHAR(60)
+);
+
+CREATE TABLE IF NOT EXISTS tbUsuarios (
+    usuDocumento VARCHAR(11) PRIMARY KEY,
+    usuTipoDoc VARCHAR(25),
+    usuTipo VARCHAR(14),
+    usuFechaNacimiento DATE,
+    sexCodigo CHAR(1),
+    FOREIGN KEY (sexCodigo) REFERENCES tbSexo(sexCodigo),
+    munCodigo VARCHAR(5),
+    FOREIGN KEY (munCodigo) REFERENCES tbMunicipio(munCodigo),
+    resCodigoZonaTerritorial VARCHAR(6),
+    FOREIGN KEY (resCodigoZonaTerritorial) REFERENCES tbResidencia(resCodigoZonaTerritorial),
+    usuIncapacidad BLOB
+    );
+
+CREATE TABLE actUsuario (
+    usuDocumento VARCHAR(11),
+    anteriorUsuTipoDoc VARCHAR(25),
+    anteriorUsuTipo VARCHAR(14),
+    anteriorSexCodigo CHAR(1),
+    anteriorMunCodigo VARCHAR(5),
+    anteriorResCodigoZonaTerritorial VARCHAR(6),
+    anteriorUsuIncapacidad BLOB,
+    nuevoUsuTipoDoc VARCHAR(25),
+    nuevoUsuTipo VARCHAR(14),
+    nuevoSexCodigo CHAR(1),
+    nuevoMunCodigo VARCHAR(5),
+    nuevoResCodigoZonaTerritorial VARCHAR(6),
+    nuevoUsuIncapacidad BLOB,
+    fmodificacion DATE);
+
+
+CREATE TRIGGER actualizacionUsuario BEFORE UPDATE ON tbUsuarios
+FOR EACH ROW
+INSERT INTO actUsuario
+VALUES (old.usuDocumento, old.usuTipoDoc, old.usuTipo, old.sexCodigo, old.munCodigo, old.resCodigoZonaTerritorial, old.usuIncapacidad,
+new.usuTipoDoc, new.usuTipo, new.sexCodigo, new.munCodigo, new.resCodigoZonaTerritorial, new.usuIncapacidad,NOW()
+);
+
+
+INSERT INTO tbSexo
+VALUES ('0', 'Masculino'), ('1', 'Femenino');
+
+INSERT INTO tbPais
+VALUES ('170', 'Colombia');
+
+INSERT INTO tbDepartamento
+VALUES ('01', 'Amazonas', '170'), ('02', 'Antioquia', '170');
+
+INSERT INTO tbMunicipio
+VALUES ('001', 'Leticia', '01'), ('002', 'Medellín', '02');
+
+INSERT INTO tbResidencia
+VALUES ('001001', 'Zona 1 - Territorio 1'), ('002001', 'Zona 2 - Territorio 1');
+
+INSERT INTO tbUsuarios
+VALUES ('38684001', 'Cedula ciudadania', 'Contributivo', '1990-01-01', '0', '001', '001001', NULL),
+('38684002', 'Cedula ciudadania', 'Subsidiado', '1985-05-10', '1', '002', '002001', NULL);
+
+UPDATE tbUsuarios SET usuTipo = 'Subsidiado' WHERE usuDocumento = '38684001';
+UPDATE tbUsuarios SET usuTipo = 'Contributivo' WHERE usuDocumento = '38684002';
+
+
+----------------------------------------------------------------------------------------------------------------------------
+--- Dionig Esteban Martinez Ruiz ADSO 2560664-B
+-- Postgresql
+
+CREATE TABLE IF NOT EXISTS tbSexo (
+    sexCodigo CHAR(1) PRIMARY KEY,
+    sexNombre VARCHAR(10)
+);
+
+CREATE TABLE IF NOT EXISTS tbPais (
+    paisCodigo VARCHAR(3) PRIMARY KEY,
+    paisNombre VARCHAR(60)
+);
+
+CREATE TABLE IF NOT EXISTS tbDepartamento (
+    depCodigo VARCHAR(2) PRIMARY KEY,
+    depNombre VARCHAR(30),
+    paisCodigo VARCHAR(3),
+    FOREIGN KEY (paisCodigo) REFERENCES tbPais(paisCodigo)
+);
+
+CREATE TABLE IF NOT EXISTS tbMunicipio (
+    munCodigo VARCHAR(5) PRIMARY KEY,
+    munNombre VARCHAR(60),
+    depCodigo VARCHAR(2),
+    FOREIGN KEY (depCodigo) REFERENCES tbDepartamento(depCodigo)
+);
+
+CREATE TABLE IF NOT EXISTS tbResidencia (
+    resCodigoZonaTerritorial VARCHAR(6) PRIMARY KEY,
+    resNombreZonaTerritorial VARCHAR(60)
+);
+
+CREATE TABLE IF NOT EXISTS tbUsuarios (
+    usuDocumento VARCHAR(11) PRIMARY KEY,
+    usuTipoDoc VARCHAR(25),
+    usuTipo VARCHAR(14),
+    usuFechaNacimiento DATE,
+    sexCodigo CHAR(1),
+    FOREIGN KEY (sexCodigo) REFERENCES tbSexo(sexCodigo),
+    munCodigo VARCHAR(5),
+    FOREIGN KEY (munCodigo) REFERENCES tbMunicipio(munCodigo),
+    resCodigoZonaTerritorial VARCHAR(6),
+    FOREIGN KEY (resCodigoZonaTerritorial) REFERENCES tbResidencia(resCodigoZonaTerritorial),
+    usuIncapacidad BYTEA
+);
+
+CREATE TABLE actUsuario (
+    usuDocumento VARCHAR(11),
+    anteriorUsuTipoDoc VARCHAR(25),
+    anteriorUsuTipo VARCHAR(14),
+    anteriorSexCodigo CHAR(1),
+    anteriorMunCodigo VARCHAR(5),
+    anteriorResCodigoZonaTerritorial VARCHAR(6),
+    anteriorUsuIncapacidad BYTEA,
+    nuevoUsuTipoDoc VARCHAR(25),
+    nuevoUsuTipo VARCHAR(14),
+    nuevoSexCodigo CHAR(1),
+    nuevoMunCodigo VARCHAR(5),
+    nuevoResCodigoZonaTerritorial VARCHAR(6),
+    nuevoUsuIncapacidad BYTEA,
+    fmodificacion TIMESTAMP
+);
+
+CREATE OR REPLACE FUNCTION actualizarUsuario()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO actUsuario
+    VALUES (
+        OLD.usuDocumento, OLD.usuTipoDoc, OLD.usuTipo, OLD.sexCodigo, OLD.munCodigo, OLD.resCodigoZonaTerritorial, OLD.usuIncapacidad,
+        NEW.usuTipoDoc, NEW.usuTipo, NEW.sexCodigo, NEW.munCodigo, NEW.resCodigoZonaTerritorial, NEW.usuIncapacidad,NOW()
+        );
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER actualizacionUsuario
+BEFORE UPDATE ON tbUsuarios
+FOR EACH ROW
+EXECUTE FUNCTION actualizarUsuario();
+
+INSERT INTO tbSexo
+VALUES ('0', 'Masculino'), ('1', 'Femenino');
+
+INSERT INTO tbPais
+VALUES ('170', 'Colombia');
+
+INSERT INTO tbDepartamento
+VALUES ('01', 'Amazonas', '170'), ('02', 'Antioquia', '170');
+
+INSERT INTO tbMunicipio
+VALUES ('001', 'Leticia', '01'), ('002', 'Medellín', '02');
+
+INSERT INTO tbResidencia
+VALUES ('001001', 'Zona 1 - Territorio 1'), ('002001', 'Zona 2 - Territorio 1');
+
+INSERT INTO tbUsuarios
+VALUES ('38684001', 'Cedula ciudadania', 'Contributivo', '1990-01-01', '0', '001', '001001', NULL),
+('38684002', 'Cedula ciudadania', 'Subsidiado', '1985-05-10', '1', '002', '002001', NULL);
+
+UPDATE tbUsuarios SET usuTipo = 'Subsidiado' WHERE usuDocumento = '38684001';
+UPDATE tbUsuarios SET usuTipo = 'Contributivo' WHERE usuDocumento = '38684002';
