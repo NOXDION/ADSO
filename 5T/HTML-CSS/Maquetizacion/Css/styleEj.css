@@ -1,0 +1,34 @@
+body{
+    background-color: lightseagreen;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+img {
+    width: 400px;
+}
+
+div {
+    margin:0;
+    margin-bottom: 100px;
+}
+
+.div1 {
+    background-color: aliceblue;
+    margin: 0 140px 0 140px;
+    width: 80%;
+    border-radius: 10px;
+}
+
+.titulo1 {
+    position: absolute;
+    margin: 0;
+}
+
+.titulo2 {
+    position: relative;
+    margin-left: 200px;
+}
+

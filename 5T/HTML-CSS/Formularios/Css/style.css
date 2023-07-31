@@ -1,0 +1,77 @@
+/*----Congiguracion global----*/
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;1,200;1,400&family=Bebas+Neue&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #1c1c1c;
+    color: #FFFFFF;
+}
+
+.logo {
+    position: absolute;
+    width: 50px;
+    height: 40px;
+    padding-top: 20px;
+    margin-left: 100px;
+}
+
+h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    position: relative;
+    margin-left: 50px;
+    float: center;
+    color:  #2204cc ;
+    padding: 50px;
+    margin-left: 500px;
+}
+
+header{
+    box-sizing: border-box;
+    background-color: #1c1c1c;
+    height: 100px;
+    border: 6px solid #39ff14;
+    text-align: center;
+}
+
+.contenido {
+    padding: 40px, 140px, 40px, 140px;
+}
+
+p {
+    font-family: 'Barlow Condensed', sans-serif;
+    text-align: justify;
+}
+
+.img-cont {
+    width: 180px;
+    float: right;
+}
+
+img {
+    width: 80px;
+}
+
+.menu {
+    background-color: #1c1c1c;
+    text-align: center;
+    padding: 20px;
+}
+
+.menu ul li{
+    display: inline-block;
+}
+
+/*.menu ul a {
+    text-decoration: none;
+    color: lightgray;
+    background-color: #F6ADC6;
+    padding: 10px 16px;
+    display: inline-block;
+    margin: 4px;
+}*/
