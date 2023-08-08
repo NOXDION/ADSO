@@ -1,0 +1,108 @@
+/*------------
+estilo Global
+------------*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;1,200&family=Mulish:ital,wght@0,300;0,400;1,200&family=Oswald:wght@200;600;700&family=Roboto:wght@100&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;1,200&family=Mulish:ital,wght@0,300;0,400;1,200&family=Oswald:wght@200;600;700&family=Roboto:wght@100&family=Victor+Mono:wght@100&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background: rgb(237, 233, 233);
+}
+/*------------
+estilo Encabezado
+------------*/
+.logo{
+    box-sizing: border-box;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius:50%;
+    margin-left: 40px;
+    border: solid rgb(136, 136, 167) ;
+}
+h1{
+    box-sizing: border-box;
+    color: azure;
+    font-size: 46px;
+    text-align: center;
+    font-family: 'Oswald', sans-serif;
+}
+header{
+    box-sizing: border-box;
+    background: rgb(34, 28, 28);
+    padding: 35px ;
+    position: relative;
+}
+/*------------
+estilo Contenido
+------------*/
+.contenido{
+     padding: 70px 140px 60px 140px;
+}
+p{
+    font-family: 'Victor Mono', monospace;
+    text-align: justify;
+}
+.img-cont{
+    width: 280px;
+    float:right;
+    padding: 40px;
+    position: relative;
+    border-radius:15px;
+}
+/*------------
+Estilo Menu de navegacion
+------------*/
+
+.menu{
+    background: rgb(34, 28, 28);
+    list-style: none;
+    text-align: center;
+    padding: 20px;
+}
+
+ul li{ 
+    display: inline-block;
+}
+
+ul a{
+    text-decoration: none;
+    color: #dcdce9;
+    background-color: rgb(141, 141, 147);
+    padding: 10px 16px;
+    border-radius: 5px;
+    opacity: 0.6;
+    font-size: 26px;
+    display: inline-block;
+    outline: none;
+    margin: 4px;
+    transition: 0.2s ease;
+    font-family: 'Mulish', sans-serif;
+}
+ul li a.activo{
+background-color: rgb(92, 92, 162);
+transform: none;
+}
+
+ul li a:hover{
+opacity: 1;
+}
+
+/*------------
+Estilo Entradas Basicas
+------------*/
+.formulario{
+    padding: 20px;
+}
+
+input:valid {
+    background-color: powderblue;
+  }
+
+input:invalid {
+  background-color: pink;
+}

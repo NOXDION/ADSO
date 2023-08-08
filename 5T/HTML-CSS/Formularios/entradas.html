@@ -3,90 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FORMULARIOS</title>
+    <title>Formularios</title>
     <link rel="icon" href="/Img/iconFormulario.png">
-    <link rel="stylesheet" href="Css/style.css">
+    <link rel="stylesheet" href="Css/style1.css">
+    <script>
+        function enviar(){
+            alert("Tus datos se estan enviando......")
+        }
+    </script>
 </head>
+
 <body>
     <!--Encabezado-->
     <header>
         <img class="logo" src="Img/iconFormulario.png" alt="logo">
         <h1>FORMULARIOS</h1>
     </header>
-
+    
     <!--Contenedor del contenido-->
     <div class="contenido">
-        <div>
+        <!--Contenedor del titulo del form-->
+        <div class="formulario">
+            <div class="titulo">
+                <h2>Input basicos</h2>
+            </div>
 
+        <!--Contenedor del formulario-->
+            <form action="#" class="form-basico">
+                <div class="entrada">
+                    <label>Tipo texto</label>
+                    <input type="text">
+                </div>
+                <br>
+                <div class="entrada">
+                    <label>Tipo fecha</label>
+                    <input type="date">
+                </div>
+                <br>
+                <div class="entrada">
+                    <label>Tipo correo</label>
+                    <input type="email">
+                </div>
+                <br>
+                <div class="entrada">
+                    <label>Tipo contraseña</label>
+                    <input type="password">
+                </div>
+                <br>
+                <div class="entrada">
+                    <label>Tipo texto largo</label>
+                    <textarea class="textarea"></textarea>
+                    
+                </div>
+                <br>
+                <div class="entrada">
+                    <label>Tipo lista desplegable</label>
+                    <select name="select">
+                        <option>opcion 1</option>
+                        <option>opcion 2</option>
+                        <option>opcion 3</option>
+                    </select>
+                </div>
+                <br>
+                <div class="entrada">
+                    <label>Tipo caja de verificacion</label>
+                    <input type="checkbox">
+                </div>
+                <br>
+                <div class="entrada">
+                    <label>Tipo selecion multiple unica respuesta</label> 
+                    <div class="opciones">
+                        <input type="radio">
+                        <option name="">Opcion 1</option>
+                    </div>
+                    <br>
+                    <div class="opciones">
+                        <input type="radio">
+                        <option name="">
+                            <span>Opcion 2</span>
+                        </option>       
+                    </div>
+                    <br>
+                    <div class="opciones">
+                        <input type="radio">
+                        <option name="">Opcion 3</option>
+                    </div>
+                </div>
+                <br>
+                <div class="entrada">
+                    <input type="button" value="Enviar" onclick="enviar()">
+                </div>
+            </form>
         </div>
-        <form action="#" class="form-basico">
-            <div class="entrada">
-                <label>Tipo texto</label>
-                <input type="text">
-            </div>
-
-            <br>
-
-            <div class="entrada">
-                <label>Tipo fecha</label>
-                <input type="date">
-            </div>
-
-            <br>
-
-            <div class="entrada">
-                <label>Tipo correo</label>
-                <input type="email">
-            </div>
-
-            <br>
-
-            <div class="entrada">
-                <label>Tipo contraseña</label>
-                <input type="password">
-            </div>
-
-            <br>
-
-            <div class="entrada">
-                <label>Tipo de texto largo</label>
-                <textarea name="textarea"></textarea>
-            </div>
-
-            <br>
-
-            <div class="entrada">
-                <label>Tipo seleccion multiple unica respuesta</label>
-
-                <div class="opciones">
-                    <input type="radio">
-                    <option name="">Opcion 1</option>
-                </div>
-
-                <div class="opciones">
-                    <input type="radio">
-                    <option name=""><span>Opcion 2</span></option>
-                </div>
-            </div>
-
-            <div class="entrada">
-                <input type="button" value="Enviar">
-            </div>
-
-        </form>
     </div>
 
     <!--Contenedor del menu de navegacion-->
     <div class="menu">
         <ul>
-            <li><a href="index.html">Index</a></li>
-            <li><a href="entradas.html">Form Entradas</a></li>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="entradas.html" class="activo">Form Entradas</a></li>
             <li><a href="registro.html">Form Registro</a></li>
             <li><a href="login.html">Form Login</a></li>
-            <li><a href="busquedas.html">Form Busquedas</a></li>
-            <li><a href="validacion.html">Form Validacion</a></li>
+            <li><a href="buscar.html">Form Buscar</a></li>
+            <li><a href="validar.html">Form Validacion</a></li>
         </ul>
     </div>
-    
+
 </body>
 </html>
