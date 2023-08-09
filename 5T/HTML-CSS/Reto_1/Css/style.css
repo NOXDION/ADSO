@@ -15,3 +15,17 @@ body {
 .nav {
     background: var(--navColor);
 }
+
+.cForm {
+    padding: 40px;
+}
+
+.formRegistro {
+    background: #A9D4D8;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.titulo, .boton, .footForm {
+    text-align: center;
+}
