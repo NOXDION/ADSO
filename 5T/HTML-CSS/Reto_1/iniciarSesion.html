@@ -8,33 +8,32 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
-
 <body>
     <nav class="navbar navbar-expand-md bg-body-tertiary nav">
         <div class="container-fluid">
-          <h1><a class="navbar-brand text-light" href="index.html">EventHub</a></h1>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <h1><a class="navbar-brand text-light" href="index.html">EventHub</a></h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <a class="nav-link active text-black" aria-current="page" href="index.html">Inicio</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-black" href="eventos.html">Eventos</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-black" href="validacion.html">Validacion</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-black" href="iniciarSesion.html">Iniciar Sesion</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-black" href="registro.html">Registro</a>
-              </li>
-            </ul>
-          </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active text-black" aria-current="page" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="eventos.html">Eventos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="validacion.html">Validacion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="iniciarSesion.html">Iniciar Sesion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="registro.html">Registro</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -52,11 +51,11 @@
                 <label for="campoContraseña">Contraseña</label>
             </div>
             <div class="boton">
-                <button type="submit" class="btn btn-primary mb-2 btnEnviar">Enviar</button>
+                <button type="submit" class="btn btn-primary mb-2 btnEnviar" onclick="btnIS()">Enviar</button>
             </div>
             <div class="footForm">
                 <p>Al iniciar sesión, estás aceptando nuestras condiciones de uso y nuestra política de privacidad.</p>
-                <p>¿No tienes una cuenta? <a class="link" href="./UsuRegistrar.html">Registrate </a></p>
+                <p>¿No tienes una cuenta? <a class="link" href="./UsuRegistrar.html">Registrate</a></p>
             </div>
         </form>
     </div>
@@ -76,8 +75,14 @@
         </div>
     </footer>
 
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
+    <script>
+        function btnIS()
+        {
+        alert("¡Acabas de iniciar sesion en EventHub!")
+        window.location.href="index.html";
+        }
+    </script>
 </body>
 </html>

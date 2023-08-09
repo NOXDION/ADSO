@@ -29,3 +29,7 @@ body {
 .titulo, .boton, .footForm {
     text-align: center;
 }
+
+.ulNav {
+    margin-right: 5px;
+}
