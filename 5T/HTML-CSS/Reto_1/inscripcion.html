@@ -8,40 +8,39 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
-
 <body>
     <nav class="navbar navbar-expand-md bg-body-tertiary nav">
         <div class="container-fluid">
-          <h1><a class="navbar-brand text-light" href="index.html">EventHub</a></h1>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <h1><a class="navbar-brand text-light" href="index.html">EventHub</a></h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <a class="nav-link active text-black" aria-current="page" href="index.html">Inicio</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-black" href="eventos.html">Eventos</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-black" href="inscripcion.html">Inscripcion</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-black" href="iniciarSesion.html">Iniciar Sesion</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-black" href="registro.html">Registro</a>
-              </li>
-            </ul>
-          </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active text-black" aria-current="page" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="eventos.html">Eventos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="inscripcion.html">Inscripcion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="iniciarSesion.html">Iniciar Sesion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="registro.html">Registro</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
     <div class="container cForm">
         <form class="col-sm-5 col-lg-5 rounded needs-validation formulario" action="#" novalidate onsubmit="enviarFormulario(event);">
             <div class="titulo">
-                <h2>REGISTRO</h2>
+                <h2>INSCRIPCION A EVENTOS</h2>
             </div>
             <div class="form-floating has-validation mb-2">
                 <input type="text" class="form-control" id="campoNombre" placeholder="Juan Jose" required>
@@ -71,25 +70,13 @@
                     Por favor coloca tu telefono.
                 </div>
             </div>
-            <div class="form-floating mb-2">
-                <select class="form-select" id="campoGenero" aria-label="Floating label select example">
-                <option selected>Selecciona genero</option>
-                <option value="1">Masculino</option>
-                <option value="2">Femenino</option>
-                <option value="3">Otro</option>
-                </select>
-                <label for="campoGenero"><i class="bi bi-gender-ambiguous"></i> Genero</label>
-            </div>
-            <div class="form-floating has-validation mb-2">
-                <input type="password" class="form-control" id="campoContraseña" placeholder="Password" required>
-                <label for="campoContraseña"><i class="bi bi-lock-fill"></i> Contraseña</label>
-                <div class="invalid-feedback">
-                    Por favor coloca una contraseña.
-                </div>
-            </div>
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                <label for="floatingTextarea"><i class="bi bi-list-task"></i> Preguntas</label>
+              </div>
             <div class="form-check mb-2">
                 <input class="form-check-input" type="checkbox" id="campoCheck" required>
-                <label class="form-check-label" for="campoCheck">Aceptación de los términos y condiciones y la política de privacidad.</label>
+                <label class="form-check-label" for="campoCheck">¿Aceptas recibir informacion de los proximos eventos a tu correo electronico'</label>
             </div>
             <div class="boton">
                 <button type="submit" class="btn btn-primary mb-2">Enviar</button>
@@ -112,7 +99,6 @@
         </div>
     </footer>
 
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
     <script>
@@ -123,8 +109,8 @@
             // Realiza la validación de Bootstrap
             const form = event.target;
             if (form.checkValidity()) {
-                alert("¡Registro completado!");
-                window.location.href = "index.html"; // Cambia "index.html" por la URL a la que deseas redirigir
+                alert("¡Te acabas de inscribir a un evento!");
+                window.location.href = "eventos.html"; // Cambia "index.html" por la URL a la que deseas redirigir
             } else {
                 event.stopPropagation();
             }
@@ -136,14 +122,14 @@
 
     <script>
         // Validacion de formularios
-        // Ejemplo de JavaScript de inicio para deshabilitar el envío de formularios si hay campos no válidos
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
         (() => {
         'use strict'
 
-        // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
         const forms = document.querySelectorAll('.needs-validation')
 
-        // Bucle sobre ellos y evitar el envio
+        // Loop over them and prevent submission
         Array.from(forms).forEach(form => {
             form.addEventListener('submit', event => {
             if (!form.checkValidity()) {
