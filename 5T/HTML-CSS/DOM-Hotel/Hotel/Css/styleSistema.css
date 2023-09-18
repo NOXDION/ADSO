@@ -1,0 +1,184 @@
+/* FONTS */
+
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital@1&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Configuracion de desplazamiento con CSSOM */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    display: flex;
+    overflow: hidden;
+}
+
+.bloque {
+    width: 100vw;
+    padding-top: 50px;
+    flex-shrink: 0;
+    height: 100vh;
+}
+
+
+/* HEADER */
+header {
+    position: fixed;
+    bottom: 0;
+    padding: 10px 0;
+    width: 100%;
+    background-image: linear-gradient( to right, #217994, #4b4545, #217994);
+    text-align: center;
+}
+
+header nav a {
+    display: inline-block;
+    margin: 0 20px;
+    text-decoration: none;
+    color: bisque;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+header span {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    line-height: 40px;
+    padding: 3px;
+}
+
+.selected {
+    color: rgb(57, 189, 17);
+    transition: .3s;
+}
+
+header nav a:hover{
+    text-shadow: 2px 2px 10px rgb(28, 102, 6);
+}
+
+/* INICIO */
+#intro{
+    background-image: url("../Img/f-pexels-pixabay.jpg");
+    background-size: cover;
+    color: white;
+}
+
+#intro .container h1 {
+    font-family: 'Lilita One', cursive;
+    font-size: 3rem;
+    text-align: center;
+    padding: 10px;
+}
+
+.fIS {
+    margin: auto auto;
+    background-color: rgba(15, 44, 89, 0.7);
+    padding: 10px;
+}
+
+.btnIS {
+    text-align: center;
+}
+
+/* SERVICIOS */
+#servicios{
+    background-image: url("../Img/f-pexels-oleksandr-tiupa.jpg");
+    background-size: cover;
+    color: white;
+}
+
+.galeria {
+    margin: 0 auto;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 5%;
+}
+
+.gallery-item img {
+    max-width: 100%;
+    transition: transform 0.3s;
+    height: 350px;
+    border-radius: 5%;
+}
+
+.gallery-item figcaption {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #000000;
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+    color: white;
+}
+
+.gallery-item:hover img {
+    transform: scale(2);
+}
+
+.gallery-item:hover figcaption {
+    opacity: 1;
+}
+
+
+
+/* RESERVAS */
+#reservas{
+    background-image: url("../Img/f-pexels-lukas-rychvalsky.jpg");
+    background-size: cover;
+    color: white;
+}
+
+#intro .container h1{
+    font-family: 'Lilita One', cursive;
+    font-size: 3rem;
+    text-align: center;
+    padding: 10px;
+}
+
+.parrafo, .fReservas {
+    background-color: rgba(15, 44, 89, 0.7);
+    padding: 20px;
+}
+
+/* CONTACTOS */
+#contactos {
+    background-image: url("../Img/f-pexels-irina-iriser.jpg");
+    background-size: cover;
+    color: white;
+}
+
+.fMensaje {
+    background-color: rgba(15, 44, 89, 0.7);
+}
+
+/* REGISTRO */
+#registro{
+    background-image: url("../Img/f-pexels-ahmed-abdelaziz.jpg");
+    background-size: cover;
+    color: white;
+}
+
+.fRegistrar {
+    margin: auto auto;
+    background-color: rgba(15, 44, 89, 0.7);
+    padding: 10px;
+}
+
+.btnRegistrar {
+    text-align: center;
+}

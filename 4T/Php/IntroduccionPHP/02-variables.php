@@ -16,7 +16,7 @@ $libre = true; // Variable booleana
 
 $activo = false; // Variable booleana
 
-$edad = 45; //Variable entera|
+$edad = 45; //Variable entera
 
 $precioUnitario = 170530.50; //Variable flotante o Real
 

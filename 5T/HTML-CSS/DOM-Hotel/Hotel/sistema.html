@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./Css/styleSistema.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Hotel-Cide</title>
+</head>
+<body>
+    <!-- MENU -->
+    <header>
+        <nav>
+            <a href="../index.html" onclick="seleccionar(this)">Blog</a>
+            <a href="#intro" onclick="seleccionar(this)" class="selected">Inicio</a>
+            <a href="#servicios" onclick="seleccionar(this)">Servicios</a>
+            <span><i class="incono_menu"><img src="./Img/logo-sena.png" alt="" srcset="" style="height: 50px;"></i></span>
+            <a href="#reservas" onclick="seleccionar(this)">Reservas</a>
+            <a href="#contactos" onclick="seleccionar(this)">Contactos</a>
+            <a href="#registro" onclick="seleccionar(this)">Registro</a>
+        </nav>
+    </header>
+
+    <!-- INICIO -->
+    <section id="intro" class="bloque">
+        <div class="container">
+            <div>
+                <h1>La mejor estancia de su vida</h1>
+            </div>
+            <div class="col-md-4 rounded fIS">
+                <form>
+                    <h2><center>INICIAR SESION</center></h2>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Aceptar terminos y condiciones</label>
+                    </div>
+                    <div class="btnIS">
+                        <button type="submit" class="btn btn-primary mt-2">Ingresar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="bloque">
+        <div><h1><center>Nuestros servicios</center></h1></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 servicio1">
+                    <div class="gallery-item">
+                        <img src="./Img/g-pexels-michael-block.jpg" alt="Imagen1">
+                        <a href="./Paginas/Servicios/piscina.html"><figcaption>Piscina</figcaption></a>
+                    </div>
+                </div>
+                <div class="col-md-2 servicio2">
+                    <div class="gallery-item">
+                        <img src="./Img/g-pexels-mat-brown.jpg" alt="Imagen2">
+                        <a href="./Paginas/Servicios/restaurante.html"><figcaption>Restaurante</figcaption></a>
+                    </div>
+                </div>
+                <div class="col-md-2 servicio3">
+                    <div class="gallery-item">
+                        <img src="./Img/g-pexels-evg-kowalievska.jpg" alt="Imagen3">
+                        <a href="./Paginas/Servicios/bar.html"><figcaption>Bar</figcaption></a>
+                    </div>
+                </div>
+                <div class="col-md-2 servicio4">
+                    <div class="gallery-item">
+                        <img src="./Img/g-pexels-monstera-production.jpg" alt="Imagen4">
+                        <a href="./Paginas/Servicios/spa.html"><figcaption>Spa</figcaption></a>
+                    </div>
+                </div>
+                <div class="col-md-2 servicio5">
+                    <div class="gallery-item">
+                        <img src="./Img/g-pexels-liliana-drew.jpg" alt="Imagen4">
+                        <a href="./Paginas/Servicios/roomService.html"><figcaption>Room service</figcaption></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESERVAS -->
+    <section id="reservas" class="bloque">
+        <div class="container">
+            <div>
+                <center><h1>¿Desea reservar?</h1></center>
+            </div>
+            <div class="row mt-4 mb-4">
+                <div class="col-md-12 rounded parrafo">
+                    <p>Las presentes condiciones generales están sujetas a lo dispuesto en la NTSH sectorial colombiana 003 (2003-02-24). 
+                        Esta norma tiene como objeto proporcionar los requisitos para ofrecer productos y servicios dando respuesta al cliente, realizar check in y check out de huéspedes y reservar habitaciones de acuerdo con procedimientos definidosen los establecimientos de alojamiento y hospedaje.</p>
+                </div>
+            </div>
+            <div class="row mt-4 mb-4">
+                <div class="col-md-4">
+                    <div class="item clausulas">
+                        <h4>Clausulas</h4>
+                        <a href="" class="btn btn-secondary"><h6>Ver mas</h6></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="item clausulas">
+                        <h4>Condiciones de pago</h4>
+                        <a href="" class="btn btn-secondary"><h6>Ver mas</h6></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="item clausulas">
+                        <h4>Reservas</h4>
+                        <a href="" class="btn btn-secondary"><h6>Ver mas</h6></a>
+                    </div>
+                </div>
+            </div>
+            <form class="row mt-4 mb-4 rounded fReservas">
+                <div class="col-md-2">
+                    <label for="nombre">Nombres</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="Nombre-Apellido">
+                </div>
+                <div class="col-md-2">
+                    <label for="cantidadPersonas">Cantidad</label>
+                    <input type="number" class="form-control" id="cantidadPersonas" min="1" placeholder="cantidadPersonas">
+                </div>
+                <div class="col-md-2">
+                    <label for="email">Correo</label>
+                    <input type="email" class="form-control" id="email" placeholder="tucorreo@example.com">
+                </div>
+                <div class="col-md-2">
+                    <label for="checkin">Ingreso</label>
+                    <input type="date" class="form-control" id="checkin">
+                </div>
+                <div class="col-md-2">
+                    <label for="checkout">Salida</label>
+                    <input type="date" class="form-control" id="checkout">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary mt-4">Reservar</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contactos" class="bloque">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="datos">
+                        <div class="item my-3">
+                            <h2>Direccion <i class="fa-solid fa-location-dot"></i></h2>
+                            <h4>Calle 13 # 10 -93, Soacha, Cundinamarca</h4>
+                        </div>
+                        <div class="item my-3">
+                            <h2>Telefono <i class="fa-solid fa-phone"></i></h2>
+                            <h4>(57) 601 5461500</h4>
+                        </div>
+                        <div class="item my-3">
+                            <h2>Email <i class="fa-regular fa-envelope"></i></h2>
+                            <h4>regionalcundinamarca@sena.edu.co</h4>
+                        </div>
+                        <div class="item my-3">
+                            <h2>Whatsapp <i class="fa-brands fa-whatsapp"></i></h2>
+                            <h4>3224002001</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 rounded fMensaje">
+                    <form>
+                        <div>
+                            <center><h2>Enviar mensaje</h2></center>
+                        </div>
+                        <div>
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre">
+                        </div>
+                        <div>
+                            <label for="apellido">Apellido</label>
+                            <input type="text" class="form-control" id="apellido">
+                        </div>
+                        <div>
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email">
+                        </div>
+                        <div>
+                            <label for="mensaje">Mensaje</label>
+                            <textarea class="form-control" id="mensaje" rows="2"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- REGISTRARSE -->
+    <section id="registro" class="bloque">
+        <div class="container">
+            <div>
+                <h1><center>Formulario de registro</center></h1>
+            </div>
+            <div class="col-md-4 rounded fRegistrar">
+                <form>
+                    <h2><center>REGISTRAR</center></h2>
+                    <div class="mb-3">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" class="form-control" id="apellido" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tipoDoc">Tipo de Documento</label>
+                        <select class="form-control" id="tipoDoc" required>
+                            <option value="cedula">Cedula</option>
+                            <option value="pasaporte">Pasaporte</option>
+                            <option value="nip">NIP</option>
+                        </select>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="acepto" required>
+                        <label class="form-check-label" for="acepto">Acepto los términos y condiciones</label>
+                    </div>
+                    <div class="btnRegistrar">
+                        <button type="submit" class="btn btn-primary mt-2">Registrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script src="./Js/section.js"></script>
+
+</body>
+</html>

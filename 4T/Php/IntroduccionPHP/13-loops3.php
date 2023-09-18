@@ -4,6 +4,6 @@
 
 for($i=1; $i<=15; $i++){
     echo 'El ciclo empieza en 1 y termina en 15, en este momento va en '. $i;
-    echo '<br>'
+    echo '<br>';
 }
 include 'includes/footer.php';

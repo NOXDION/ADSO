@@ -10,10 +10,6 @@ include 'includes/header.php';
 function inversoMultiplicativo(float $numero): float {
 
      return 1/$numero;
-
-    
-
-
 }
 
 $inverso = inversoMultiplicativo(1250);
