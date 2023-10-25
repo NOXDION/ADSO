@@ -31,7 +31,7 @@ class Libro {
 
     public function setPrecioBase($precioBase)
     { $this->precioBase = $precioBase; }
- 
+
     public function setDescuento($descuento)
     { $this->descuento = $descuento; }
 
@@ -50,7 +50,7 @@ class Libro {
 
     public function getPrecioBase()
     { return $this->precioBase; }
- 
+
     public function getDescuento()
     { return $this->descuento; }
 

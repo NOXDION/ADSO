@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIDE</title>
+    <link rel="icon" href="./img2/logo verde.png">
+    <link rel="stylesheet" href="{{url_for('static', filename='hotel/css/styleIndex.css')}}">
+</head>
+
+<body>
+    <!-- REGISTRARSE -->
+    <section id="registro" class="bloque">
+        <div class="container">
+            <div>
+                <h1>
+                    <center>Formulario de registro</center>
+                </h1>
+            </div>
+            <div class="col-md-4 rounded fRegistrar">
+                <form action="/new" method="post">
+                    <h2>
+                        <center>REGISTRAR</center>
+                    </h2>
+                    <div class="mb-3">
+                        <label for="nombre">Id</label>
+                        <input type="number" class="form-control" name="id" id="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" class="form-control" name="apellido" id="apellido" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tipoDoc">Tipo de Documento</label>
+                        <select class="form-control" id="tipoDoc" required>
+                            <option value="cedula">Cedula</option>
+                            <option value="pasaporte">Pasaporte</option>
+                            <option value="nip">NIP</option>
+                        </select>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="acepto" required>
+                        <label class="form-check-label" for="acepto">Acepto los términos y condiciones</label>
+                    </div>
+                    <div class="btnRegistrar">
+                        <button type="submit" class="btn btn-primary mt-2">Registrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

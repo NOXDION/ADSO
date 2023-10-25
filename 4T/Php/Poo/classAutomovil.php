@@ -72,7 +72,7 @@ $autoDunixi -> setModelo('2026');
 $autoDunixi -> setMatricula('DNX800');
 $autoDunixi -> setPrecio(250000.02);
 
-echo '<h4>La marca es '.$autoDunixi -> getMarca().'</h4>';
+
 echo '<br>El modelo es '.$autoDunixi -> getModelo();
 echo '<br>La matricula es '.$autoDunixi -> getMatricula();
 echo '<br>El precio es '.$autoDunixi -> getPrecio().'<br>';
